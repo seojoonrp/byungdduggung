@@ -1,0 +1,66 @@
+.start-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.start-title {
+  margin-top: 110px;
+  font-size: 24px;
+  font-family: "Freesentation-7Bold", sans-serif;
+}
+
+.start-sojuImg {
+  margin-top: 20px;
+  height: 150px;
+  width: auto;
+}
+
+.start-infoButton {
+  display: inline-block;
+  margin-top: 40px;
+  width: 160px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 16px;
+  font-family: "Freesentation-5Medium", sans-serif;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.start-departmentInput {
+  margin-top: 30px;
+  width: 200px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 14px;
+  font-family: "Freesentation-3Light", sans-serif;
+  text-align: center;
+  border: 1px solid black;
+  outline: none;
+}
+.start-input::placeholder {
+  color: #888;
+}
+
+.start-startButton {
+  display: inline-block;
+  margin-top: 30px;
+  width: 160px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 16px;
+  font-family: "Freesentation-5Medium", sans-serif;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+}
