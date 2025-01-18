@@ -14,7 +14,7 @@ function StartScreen({ department, setDepartment }) {
       <img
         src="https://www.ceoscoredaily.com/photos/2021/03/11/2021031112333638672_l.png"
         alt="병뚜껑 게임 이미지"
-        className="start-sojuImg"
+        className="start-sojuImgsdfsdfsdfsdf"
       />
       <button
         className="start-infoButton"
