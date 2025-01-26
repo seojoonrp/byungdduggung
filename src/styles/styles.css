@@ -15,14 +15,15 @@
   height: auto;
 }
 
-.start-sojuImg {
+.start-logo {
   margin-top: 30px;
   width: 20%;
   height: auto;
 }
 
-.start-departmentInput {
+.start-department-input {
   margin-top: 25px;
+  margin-bottom: 20px;
   width: 50%;
   padding: 10px;
   font-size: 12px;
@@ -34,20 +35,17 @@
   border: none;
   outline: none;
 }
-.start-departmentInput::placeholder {
+.start-department-input::placeholder {
   color: #4f5936;
 }
 
-.start-infoButton {
+.main-button {
   display: inline-block;
-  margin-top: 20px;
   width: 35%;
-  padding-top: 10px;
-  padding-bottom: 13px;
+  padding: 10px 0;
   font-size: 15px;
   font-family: "Freesentation-5Medium", sans-serif;
   color: white;
-  background-image: url("../images/LightGreenButtonOutline.svg");
   background-size: 100% 100%;
   background-color: transparent;
   border: none;
@@ -55,34 +53,10 @@
   text-align: center;
 }
 
-.start-leaderBoardButton {
-  display: inline-block;
-  width: 35%;
-  padding-top: 10px;
-  padding-bottom: 13px;
-  font-size: 15px;
-  font-family: "Freesentation-5Medium", sans-serif;
-  color: white;
+.lightgreen-button {
   background-image: url("../images/LightGreenButtonOutline.svg");
-  background-size: 100% 100%;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: center;
 }
 
-.start-startButton {
-  display: inline-block;
-  width: 35%;
-  padding-top: 10px;
-  padding-bottom: 13px;
-  font-size: 15px;
-  font-family: "Freesentation-5Medium", sans-serif;
-  color: white;
+.darkgreen-button {
   background-image: url("../images/DarkGreenButtonOutline.svg");
-  background-size: 100% 100%;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: center;
 }

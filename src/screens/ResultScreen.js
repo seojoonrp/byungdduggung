@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import './ResultScreen.css'
-
 function ResultScreen({ department, similarity }) {
   const navigate = useNavigate();
 
