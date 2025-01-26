@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import './StartScreen.css';
 
+import BackgroundImage from '../images/BackgroundImage.svg';
+
 function StartScreen({ department, setDepartment }) {
   const navigate = useNavigate();
 
