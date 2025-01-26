@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './styles/fonts.css';
 import StartScreen from './screens/StartScreen';
-import DivideScreen from './screens/DivideScreen';
-import MakeScreen from './screens/MakeScreen';
+import GameScreen from './screens/GameScreen';
 import ResultScreen from './screens/ResultScreen';
 
 function App() {
@@ -18,8 +17,7 @@ function App() {
           path='/'
           element={<StartScreen department={department} setDepartment={setDepartment} />}
         />
-        <Route path='/divide' element={<DivideScreen />} />
-        <Route path='/make' element={<MakeScreen />} />
+        <Route path='/game' element={<GameScreen />} />
         <Route
           path='/result'
           element={<ResultScreen department={department} similarity={similarity} />}

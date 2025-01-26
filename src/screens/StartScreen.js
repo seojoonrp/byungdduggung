@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import './StartScreen.css';
 
-import BackgroundImage from '../images/BackgroundImage.svg';
+import TitleImage from '../images/StartScreen/TitleImage.svg';
+import MainLogoImage from '../images/StartScreen/MainLogoImage.svg';
 
 function StartScreen({ department, setDepartment }) {
   const navigate = useNavigate();
@@ -12,17 +13,16 @@ function StartScreen({ department, setDepartment }) {
 
   return (
     <div className="start-container">
-      <h1 className="start-title">~~~ 병뚜껑 게임 ~~~</h1>
       <img
-        src="https://www.ceoscoredaily.com/photos/2021/03/11/2021031112333638672_l.png"
-        alt="병뚜껑 게임 이미지"
+        src={TitleImage}
+        alt="제목 이미지"
+        className="start-title"
+      />
+      <img
+        src={MainLogoImage}
+        alt="메인 로고 이미지"
         className="start-sojuImg"
       />
-      <button
-        className="start-infoButton"
-      >
-        게임 설명 보기
-      </button>
       <input
         type="text"
         className="start-departmentInput"
@@ -33,8 +33,18 @@ function StartScreen({ department, setDepartment }) {
         onBlur={() => setPlaceholder("재학 중인 학과를 입력해주세요")}
       />
       <button
+        className="start-infoButton"
+      >
+        게임 설명
+      </button>
+      <button
+        className="start-leaderBoardButton"
+      >
+        리더보드 보기
+      </button>
+      <button
         className="start-startButton"
-        onClick={() => navigate('/divide')}
+        onClick={() => navigate('/game')}
       >
         시작하기
       </button>
