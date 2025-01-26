@@ -12,7 +12,7 @@ function StartScreen({ department, setDepartment }) {
   const [placeholder, setPlaceholder] = useState("재학 중인 학과를 입력해주세요");
 
   return (
-    <div className="start-container">
+    <div className="main-container">
       <img
         src={TitleImage}
         alt="제목 이미지"
