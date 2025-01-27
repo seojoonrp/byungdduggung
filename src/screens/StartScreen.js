@@ -46,7 +46,7 @@ function StartScreen({ department, setDepartment }) {
         className="main-button darkgreen-button"
         onClick={() => navigate('/game')}
       >
-        시작하기
+        시작하기!
       </button>
     </div>
   );
