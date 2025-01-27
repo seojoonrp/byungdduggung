@@ -58,10 +58,10 @@
   text-align: center;
 }
 
-.lightgreen-button {
+.main-button.lightgreen {
   background-image: url("../images/LightGreenButtonOutline.svg");
 }
 
-.darkgreen-button {
+.main-button.darkgreen {
   background-image: url("../images/DarkGreenButtonOutline.svg");
 }

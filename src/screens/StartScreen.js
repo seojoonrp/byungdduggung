@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import '../styles/styles.css';
+import "../styles/styles.css";
 
-import TitleImage from '../images/StartScreen/TitleImage.svg';
-import MainLogoImage from '../images/StartScreen/MainLogoImage.svg';
+import TitleImage from "../images/StartScreen/TitleImage.svg";
+import MainLogoImage from "../images/StartScreen/MainLogoImage.svg";
 
 function StartScreen({ department, setDepartment }) {
   const navigate = useNavigate();
@@ -33,17 +33,17 @@ function StartScreen({ department, setDepartment }) {
         onBlur={() => setPlaceholder("재학 중인 학과를 입력해주세요")}
       />
       <button
-        className="main-button lightgreen-button"
+        className="main-button lightgreen"
       >
         게임 설명
       </button>
       <button
-        className="main-button lightgreen-button"
+        className="main-button lightgreen"
       >
         리더보드 보기
       </button>
       <button
-        className="main-button darkgreen-button"
+        className="main-button darkgreen"
         onClick={() => navigate('/game')}
       >
         시작하기!
