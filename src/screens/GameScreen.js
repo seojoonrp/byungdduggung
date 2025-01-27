@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "../styles/styles.css";
 import Timer from "../components/Timer";
 
+import PanelBorderImage from "../images/GameScreen/PanelBorderImage.svg";
+import PanelMaskImage from "../images/GameScreen/PanelMaskImage.svg";
+import GamePanel from "../components/GamePanel";
+
 function GameScreen() {
   const navigate = useNavigate();
 
@@ -13,8 +17,11 @@ function GameScreen() {
         duration={5}
       // onComplete={() => navigate('/result')}
       />
+      <GamePanel
+      />
       <button
         className="main-button lightgreen"
+        style={{ marginTop: "15px" }}
         onClick={() => navigate('/result')}
       >
         결과 확인하기

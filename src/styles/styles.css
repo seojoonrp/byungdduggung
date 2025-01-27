@@ -75,7 +75,7 @@
   background-color: transparent;
   background-image: url("../images/GameScreen/TimerBarImage.svg");
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .timer-bar-fill {
