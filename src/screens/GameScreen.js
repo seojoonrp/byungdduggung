@@ -10,7 +10,7 @@ function GameScreen() {
   return (
     <div className="main-container">
       <Timer
-        duration={5}
+        duration={100}
         onComplete={() => navigate('/result')}
       />
       <button
