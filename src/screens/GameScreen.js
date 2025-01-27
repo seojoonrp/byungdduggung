@@ -1,13 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import "../styles/styles.css";
+import Timer from "../components/Timer";
+
 function GameScreen() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>게임화면</h1>
-      <button onClick={() => navigate('/result')}>확인</button>
+    <div className="main-container">
+      <Timer
+        duration={5}
+        onComplete={() => navigate('/result')}
+      />
+      <button
+        className="main-button lightgreen"
+        onClick={() => navigate('/result')}
+      >
+        결과 확인하기
+      </button>
     </div>
   );
 }
