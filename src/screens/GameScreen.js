@@ -2,10 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/styles.css";
-import Timer from "../components/Timer";
 
-import PanelBorderImage from "../images/GameScreen/PanelBorderImage.svg";
-import PanelMaskImage from "../images/GameScreen/PanelMaskImage.svg";
+import Timer from "../components/Timer";
 import GamePanel from "../components/GamePanel";
 
 function GameScreen() {
