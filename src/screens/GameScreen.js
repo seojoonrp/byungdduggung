@@ -12,8 +12,8 @@ function GameScreen() {
   return (
     <div className="main-container">
       <Timer
-        duration={5}
-      // onComplete={() => navigate('/result')}
+        duration={60}
+        onComplete={() => navigate('/result')}
       />
       <GamePanel
       />

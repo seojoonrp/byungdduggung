@@ -7,18 +7,19 @@ import BottleCapImage from "../images/GameScreen/BottleCapImage.svg"
 
 const GamePanel = () => {
   const capWidth = 75;
-  const barWidth = 3;
+  const barWidth = 2.5;
   const totalLength = Math.PI * capWidth;
 
-  const fillSpeed = 0.003;
-  const rotationSpeed = 0.6;
+  const fillSpeed = 0.0035;
+  const rotationSpeed = 2;
   const frameTime = 25;
 
   const [curRatio, setCurRatio] = useState(0);
   const [confirmedRatio, setConfirmedRatio] = useState(0);
   const [curRotation, setCurRotation] = useState(-90);
-  const [curPivot, setCurPivot] = useState({ x: 105, y: 358 });
+  const [curPivot, setCurPivot] = useState({ x: 105, y: 338 });
 
+  const [curSegmentLength, setCurSegmentLength] = useState(0);
   const [segments, setSegments] = useState([]);
 
   const [isClicked, setIsClicked] = useState(false);
@@ -47,28 +48,27 @@ const GamePanel = () => {
 
   // 클릭했을 때
   const handleMouseDown = () => {
-    const segmentLength = (curRatio - confirmedRatio) * totalLength;
-    setSegments((prev) => [...prev, { size: segmentLength, angle: curRotation }]);
-
-    setConfirmedRatio(curRatio);
-
-    console.log(segments);
+    setCurSegmentLength((curRatio - confirmedRatio) * totalLength);
 
     setIsClicked(true);
   };
 
   // 클릭 뗐을 때
   const handleMouseUp = () => {
-    const newPivot = calculateNewPivot();
+    const segmentLength = (curRatio - confirmedRatio) * totalLength;
+    setSegments((prev) => [...prev, { size: segmentLength, angle: curRotation }]);
+
+    setConfirmedRatio(curRatio);
+
+    const newPivot = calculateNewPivot(segmentLength);
     setCurPivot(newPivot);
 
-    console.log(curPivot);
-
     setIsClicked(false);
+
+    console.log(segments);
   };
 
-  const calculateNewPivot = () => {
-    const segmentLength = segments[segments.length - 1].size;
+  const calculateNewPivot = (segmentLength) => {
     const radRotation = curRotation * Math.PI / 180;
 
     console.log(segmentLength);
@@ -80,11 +80,11 @@ const GamePanel = () => {
   }
 
   const renderSegments = () => {
-    let x = curPivot.x;
-    let y = curPivot.y;
+    let x = 105;
+    let y = 338;
 
     return segments.map((segment, index) => {
-      const radRotation = curRotation * Math.PI / 180;
+      const radRotation = segment.angle * Math.PI / 180;
       const transform = `translate(${x}, ${y}) rotate(${segment.angle})`;
 
       x += segment.size * Math.cos(radRotation);
@@ -132,14 +132,32 @@ const GamePanel = () => {
         }}
       >
         {renderSegments()}
+        {isClicked && (
+          <g transform={`translate(${curPivot.x}, ${curPivot.y}) rotate(${curRotation})`}>
+            <rect
+              x={0}
+              y={-barWidth / 2}
+              width={curSegmentLength}
+              height={barWidth}
+              fill="#798645"
+            />
+          </g>
+        )}
         {!isClicked && (
           <g transform={`translate(${curPivot.x}, ${curPivot.y}) rotate(${curRotation})`}>
             <rect
               x={0}
               y={-barWidth / 2}
-              width={(curRatio - confirmedRatio) * totalLength}
+              width={(1 - confirmedRatio) * totalLength}
               height={barWidth}
               fill="#BAC677"
+            />
+            <rect
+              x={0}
+              y={-barWidth / 2}
+              width={(curRatio - confirmedRatio) * totalLength}
+              height={barWidth}
+              fill="#E81C1C"
             />
           </g>
         )}
