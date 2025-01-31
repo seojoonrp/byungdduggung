@@ -9,7 +9,6 @@
 }
 
 .bottle-cap-image {
-  width: 75px; /* 나중에 반응형으로 바꿔야 됨 */
   height: auto;
   margin-bottom: 60px;
 }
