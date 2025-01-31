@@ -11,7 +11,7 @@ const GamePanel = () => {
   const totalLength = Math.PI * capWidth;
 
   const fillSpeed = 0.003;
-  const rotationSpeed = 0.3;
+  const rotationSpeed = 0.6;
   const frameTime = 25;
 
   const [curRatio, setCurRatio] = useState(0);
@@ -62,6 +62,8 @@ const GamePanel = () => {
     const newPivot = calculateNewPivot();
     setCurPivot(newPivot);
 
+    console.log(curPivot);
+
     setIsClicked(false);
   };
 
@@ -69,9 +71,11 @@ const GamePanel = () => {
     const segmentLength = segments[segments.length - 1].size;
     const radRotation = curRotation * Math.PI / 180;
 
+    console.log(segmentLength);
+
     return {
-      x: curPivot.x + segmentLength * Math.sin(radRotation),
-      y: curPivot.y + segmentLength * Math.cos(radRotation)
+      x: curPivot.x + segmentLength * Math.cos(radRotation),
+      y: curPivot.y + segmentLength * Math.sin(radRotation)
     }
   }
 
