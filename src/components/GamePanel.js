@@ -7,6 +7,7 @@ import BottleCapImage from "../images/GameScreen/BottleCapImage.svg"
 
 const GamePanel = () => {
   const capWidth = 75;
+  const barWidth = 3;
   const totalLength = Math.PI * capWidth;
 
   const fillSpeed = 0.003;
@@ -14,10 +15,11 @@ const GamePanel = () => {
   const frameTime = 25;
 
   const [curRatio, setCurRatio] = useState(0);
-  const [segmentRatio, setSegmentRatio] = useState(0);
   const [confirmedRatio, setConfirmedRatio] = useState(0);
-  const [curRotation, setCurRotation] = useState(0);
-  const [curPivot, setCurPivot] = useState({ x: 200, y: 100 });
+  const [curRotation, setCurRotation] = useState(-90);
+  const [curPivot, setCurPivot] = useState({ x: 105, y: 358 });
+
+  const [segments, setSegments] = useState([]);
 
   const [isClicked, setIsClicked] = useState(false);
 
@@ -45,32 +47,65 @@ const GamePanel = () => {
 
   // 클릭했을 때
   const handleMouseDown = () => {
-    setIsClicked(true);
+    const segmentLength = (curRatio - confirmedRatio) * totalLength;
+    setSegments((prev) => [...prev, { size: segmentLength, angle: curRotation }]);
 
-    setSegmentRatio(curRatio - confirmedRatio);
     setConfirmedRatio(curRatio);
+
+    console.log(segments);
+
+    setIsClicked(true);
   };
 
   // 클릭 뗐을 때
   const handleMouseUp = () => {
-    setIsClicked(false);
-
-    const newPivot = calculateNewPivot(confirmedRatio);
+    const newPivot = calculateNewPivot();
     setCurPivot(newPivot);
+
+    setIsClicked(false);
   };
 
   const calculateNewPivot = () => {
-    const segmentLength = totalLength * segmentRatio;
+    const segmentLength = segments[segments.length - 1].size;
     const radRotation = curRotation * Math.PI / 180;
 
     return {
       x: curPivot.x + segmentLength * Math.sin(radRotation),
-      y: curPivot.y - segmentLength * Math.cos(radRotation)
+      y: curPivot.y + segmentLength * Math.cos(radRotation)
     }
   }
 
+  const renderSegments = () => {
+    let x = curPivot.x;
+    let y = curPivot.y;
+
+    return segments.map((segment, index) => {
+      const radRotation = curRotation * Math.PI / 180;
+      const transform = `translate(${x}, ${y}) rotate(${segment.angle})`;
+
+      x += segment.size * Math.cos(radRotation);
+      y += segment.size * Math.sin(radRotation);
+
+      return (
+        <g key={index} transform={transform}>
+          <rect
+            x={0}
+            y={-barWidth / 2}
+            width={segment.size}
+            height={barWidth}
+            fill="#798645"
+          />
+        </g>
+      );
+    });
+  };
+
   return (
-    <div className="container">
+    <div
+      className="container"
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
       <img
         src={BottleCapImage}
         alt="병뚜껑 이미지"
@@ -82,6 +117,29 @@ const GamePanel = () => {
         alt="패널 경계선 이미지"
         className="background-border"
       />
+
+      <svg
+        width={280}
+        height={460}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0
+        }}
+      >
+        {renderSegments()}
+        {!isClicked && (
+          <g transform={`translate(${curPivot.x}, ${curPivot.y}) rotate(${curRotation})`}>
+            <rect
+              x={0}
+              y={-barWidth / 2}
+              width={(curRatio - confirmedRatio) * totalLength}
+              height={barWidth}
+              fill="#BAC677"
+            />
+          </g>
+        )}
+      </svg>
     </div>
   );
 };
