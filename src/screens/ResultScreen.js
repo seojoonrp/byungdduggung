@@ -13,7 +13,8 @@ function ResultScreen({ department }) {
 
   return (
     <div className="result-container">
-      <h1 className="result-similarity">유사도 : {similarity}</h1>
+      <h1 className="result-similarity">유사도 : {similarity.toFixed(4)}</h1>
+      <Score onSimilarityChange={handleSimilarityChange} />
       <h1 className="result-similarity">학과 : {department}</h1>
       {/* 필요하다면 navigate(...) 등 다른 로직 추가 */}
     </div>
