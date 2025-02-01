@@ -5,7 +5,7 @@ function ResultScreen({ department, similarity }) {
   const navigate = useNavigate();
 
   return (
-    <div className="result-container">
+    <div className="main-container">
       <h1 className="result-similarity">유사도 : {similarity}</h1>
       <h1 className="result-similarity">학과 : {department}</h1>
     </div>
