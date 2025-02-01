@@ -5,6 +5,7 @@ import "../styles/styles.css";
 
 import Timer from "../components/Timer";
 import GamePanel from "../components/GamePanel";
+import AnswerShapeRenderer from "../components/answer";
 
 function GameScreen() {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ function GameScreen() {
         duration={60}
         onComplete={() => navigate('/result')}
       />
-      <GamePanel
-      />
+      <GamePanel />
+      <AnswerShapeRenderer />
       <button
         className="main-button lightgreen"
         style={{ marginTop: "15px" }}
