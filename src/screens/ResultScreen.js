@@ -13,12 +13,7 @@ function ResultScreen({ department }) {
 
   return (
     <div className="result-container">
-      {/* Score 컴포넌트에서 계산된 유사도 값을 여기서만 표시 */}
-      <h1 className="result-similarity">유사도 : {similarity.toFixed(4)}</h1>
-
-      {/* Score 컴포넌트 (DTW 계산) */}
-      <Score onSimilarityChange={handleSimilarityChange} />
-
+      <h1 className="result-similarity">유사도 : {similarity}</h1>
       <h1 className="result-similarity">학과 : {department}</h1>
       {/* 필요하다면 navigate(...) 등 다른 로직 추가 */}
     </div>
