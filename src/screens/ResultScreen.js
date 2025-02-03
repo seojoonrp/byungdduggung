@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Score from "../components/score";
+import Score from "../components/Score";
 
 function ResultScreen({ department }) {
   const navigate = useNavigate();

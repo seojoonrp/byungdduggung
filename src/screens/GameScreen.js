@@ -5,7 +5,7 @@ import "../styles/styles.css";
 
 import Timer from "../components/Timer";
 import GamePanel from "../components/GamePanel";
-import AnswerShapeRenderer from "../components/answer";
+import AnswerShapeRenderer from "../components/Answer";
 
 function GameScreen() {
   const navigate = useNavigate();
