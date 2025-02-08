@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { answerSegments } from './Answer.js';
 import { shapeSegmentsGlobal } from './GamePanel.js';
 
+import "../styles/Score.css";
+
+import PanelBorderImage from "../images/GameScreen/PanelBorderImage.svg";
+import BottleCapImage from "../images/GameScreen/BottleCapImage.svg";
+
 /** 
  * 1) (ratio, deltaAngle) → 폴리라인(꼭지점) 변환
  */
@@ -196,18 +201,17 @@ function ShapeVisualizer({ answerPoints, userPoints, width = 300, height = 300 }
     <svg
       width={width}
       height={height}
-      style={{ border: "1px solid #ccc", background: "#fafafa" }}
       viewBox={viewBox}
     >
       {/* 정답 파랑 */}
-      <path d={answerPath} stroke="blue" strokeWidth="2" fill="none" />
+      <path d={answerPath} stroke="#BAC677" strokeWidth="0.8" fill="none" />
       {answerPoints.map((p, i) => (
-        <circle key={`A${i}`} cx={p.x} cy={p.y} r={1.5} fill="blue" />
+        <circle key={`A${i}`} cx={p.x} cy={p.y} r={0.2} fill="#BAC677" />
       ))}
       {/* 유저 빨강 */}
-      <path d={userPath} stroke="red" strokeWidth="2" fill="none" />
+      <path d={userPath} stroke="#798645" strokeWidth="0.8" fill="none" />
       {userPoints.map((p, i) => (
-        <circle key={`U${i}`} cx={p.x} cy={p.y} r={1.5} fill="red" />
+        <circle key={`U${i}`} cx={p.x} cy={p.y} r={0.2} fill="#798645" />
       ))}
     </svg>
   );
@@ -230,10 +234,17 @@ function Score() {
   }, []);
 
   return (
-    <div>
-      <h3>Score (1~100 scaling)</h3>
-      <p>Score: {score.toFixed(2)}</p>
-      <ShapeVisualizer answerPoints={answerPts} userPoints={userPts} width={300} height={300} />
+    <div className="score-container">
+      <span className="your-similarity-is">당신의 유사도는...</span>
+      <span className="similarity">{score.toFixed(2)}%</span>
+      <div className="visualizer">
+        <ShapeVisualizer
+          answerPoints={answerPts}
+          userPoints={userPts}
+          width={280}
+          height={280}
+        />
+      </div>
     </div>
   );
 }

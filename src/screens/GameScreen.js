@@ -17,7 +17,7 @@ function GameScreen() {
         onComplete={() => navigate('/result')}
       />
       <GamePanel />
-      <AnswerShapeRenderer />
+      {/* <AnswerShapeRenderer /> */}
       <button
         className="main-button lightgreen"
         style={{ marginTop: "15px" }}

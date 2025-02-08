@@ -1,0 +1,30 @@
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.your-similarity-is {
+  color: #798645;
+  font-size: 27px;
+  font-family: "EF_jejudoldam", sans-serif;
+  letter-spacing: -1px;
+  text-shadow: 1.5px 2px 0 #e8e3cd;
+}
+
+.similarity {
+  color: #626f47;
+  font-size: 50px;
+  font-family: "BagelFatOne-Regular", sans-serif;
+  margin-top: -7px;
+  text-shadow: 1.5px 2px 0 #e8e3cd;
+}
+
+.visualizer {
+  width: 280px;
+  background-color: #fcfaed;
+  border: 1.2px solid #798645;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 23px;
+}

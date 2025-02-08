@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./GamePanel.css";
+import "../styles/GamePanel.css";
 
 import PanelBorderImage from "../images/GameScreen/PanelBorderImage.svg";
 import BottleCapImage from "../images/GameScreen/BottleCapImage.svg";
@@ -167,7 +167,7 @@ const GamePanel = () => {
 
   return (
     <div
-      className="container"
+      className="panel-container"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     >

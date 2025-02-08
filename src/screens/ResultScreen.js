@@ -13,10 +13,22 @@ function ResultScreen({ department }) {
 
   return (
     <div className="main-container">
-      <h1 className="result-similarity">유사도 : {similarity.toFixed(4)}</h1>
       <Score onSimilarityChange={handleSimilarityChange} />
-      <h1 className="result-similarity">학과 : {department}</h1>
-      {/* 필요하다면 navigate(...) 등 다른 로직 추가 */}
+      <button
+        className="main-button lightgreen"
+      >
+        다시하기
+      </button>
+      <button
+        className="main-button lightgreen"
+      >
+        리더보드 보기
+      </button>
+      <button
+        className="main-button darkgreen"
+      >
+        스토리 공유하기!
+      </button>
     </div>
   );
 }
