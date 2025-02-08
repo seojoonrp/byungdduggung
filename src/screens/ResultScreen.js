@@ -29,6 +29,11 @@ function ResultScreen({ department }) {
       >
         스토리 공유하기!
       </button>
+      <button
+        className="result-how-calculated"
+      >
+        유사도는 어떻게 측정되나요?
+      </button>
     </div>
   );
 }

@@ -84,3 +84,47 @@
   border-radius: 1px;
   transition: width 0.1s linear;
 }
+
+.result-how-calculated {
+  font-size: 10px;
+  font-family: "Freesentation-5Medium";
+  color: #626f47;
+  background-color: transparent;
+  border: none;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.desc-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desc {
+  background: #ffffff;
+  width: 200px;
+  height: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.desc-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #798645;
+}
