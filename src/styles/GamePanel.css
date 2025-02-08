@@ -6,17 +6,11 @@
   align-items: flex-end;
   justify-content: center;
   background-color: #fcfaed;
+  border: 1.5px solid #798645;
+  border-radius: 10px;
 }
 
 .bottle-cap-image {
   height: auto;
   margin-bottom: 80px;
-}
-
-.background-border {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }

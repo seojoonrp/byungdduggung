@@ -184,7 +184,7 @@ function getBoundingBox(...arrays) {
 }
 
 /** ShapeVisualizer: 두 폴리라인을 SVG로 그려 확인 */
-function ShapeVisualizer({ answerPoints, userPoints, width = 300, height = 300 }) {
+function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
   if (!answerPoints || !userPoints) return null;
 
   const { minX, maxX, minY, maxY } = getBoundingBox(answerPoints, userPoints);
@@ -235,7 +235,7 @@ function Score() {
 
   return (
     <div className="score-container">
-      <span className="your-similarity-is">당신의 유사도는...</span>
+      <span className="your-similarity-is">당신의 유사도는...!</span>
       <span className="similarity">{score.toFixed(2)}%</span>
       <div className="visualizer">
         <ShapeVisualizer

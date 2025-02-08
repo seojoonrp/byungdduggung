@@ -177,11 +177,6 @@ const GamePanel = () => {
         className="bottle-cap-image"
         style={{ width: `${capWidth}px` }}
       />
-      <img
-        src={PanelBorderImage}
-        alt="패널 경계선 이미지"
-        className="background-border"
-      />
 
       <svg
         width={280}
