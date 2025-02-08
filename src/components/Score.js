@@ -9,7 +9,7 @@ function buildVertices(segments, startAngle = -90, startX = 0, startY = 0, total
   let angle = startAngle;
   let x = startX;
   let y = startY;
-  
+
   const vertices = [{ x, y }];
 
   for (let i = 0; i < segments.length; i++) {
@@ -34,9 +34,9 @@ function samplePolyline(vertices, sampleCount) {
   const segLengths = [];
   let totalDist = 0;
   for (let i = 0; i < vertices.length - 1; i++) {
-    const dx = vertices[i+1].x - vertices[i].x;
-    const dy = vertices[i+1].y - vertices[i].y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
+    const dx = vertices[i + 1].x - vertices[i].x;
+    const dy = vertices[i + 1].y - vertices[i].y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
     segLengths.push(dist);
     totalDist += dist;
   }
@@ -56,12 +56,12 @@ function interpolatePoint(vertices, segLengths, distT) {
   for (let i = 0; i < segLengths.length; i++) {
     const segLen = segLengths[i];
     const start = vertices[i];
-    const end = vertices[i+1];
+    const end = vertices[i + 1];
 
     if (curDist + segLen >= distT) {
       const ratio = (distT - curDist) / segLen;
-      const x = start.x + (end.x - start.x)*ratio;
-      const y = start.y + (end.y - start.y)*ratio;
+      const x = start.x + (end.x - start.x) * ratio;
+      const y = start.y + (end.y - start.y) * ratio;
       return { x, y };
     }
     curDist += segLen;
@@ -76,7 +76,7 @@ function interpolatePoint(vertices, segLengths, distT) {
 function pointDistance2D(a, b) {
   const dx = a.x - b.x;
   const dy = a.y - b.y;
-  return Math.sqrt(dx*dx + dy*dy);
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 function dtw2D(seqA, seqB) {
@@ -128,17 +128,17 @@ function compareSegments2D() {
 
   // (A) 폴리라인 복원
   const answerVerts = buildVertices(answerSegments, -90, 0, 0, totalLength);
-  const userVerts   = buildVertices(shapeSegmentsGlobal, -90, 0, 0, totalLength);
+  const userVerts = buildVertices(shapeSegmentsGlobal, -90, 0, 0, totalLength);
 
   // (B) 샘플링
   const answerPoints = samplePolyline(answerVerts, sampleCount);
-  const userPoints   = samplePolyline(userVerts,   sampleCount);
+  const userPoints = samplePolyline(userVerts, sampleCount);
 
   // (C) DTW
   const distance = dtw2D(answerPoints, userPoints);
 
   // (D) 1~100 점수 변환
-  const score = scaledScore(distance*0.5); // 이거는 보정 필요할 수 있음 0.5 값을 조절해서
+  const score = scaledScore(distance * 0.5); // 이거는 보정 필요할 수 있음 0.5 값을 조절해서
 
   console.log(`distance = ${distance.toFixed(3)}, score(1~100) = ${score.toFixed(2)}`);
 
@@ -179,7 +179,7 @@ function getBoundingBox(...arrays) {
 }
 
 /** ShapeVisualizer: 두 폴리라인을 SVG로 그려 확인 */
-function ShapeVisualizer({ answerPoints, userPoints, width=300, height=300 }) {
+function ShapeVisualizer({ answerPoints, userPoints, width = 300, height = 300 }) {
   if (!answerPoints || !userPoints) return null;
 
   const { minX, maxX, minY, maxY } = getBoundingBox(answerPoints, userPoints);
@@ -187,10 +187,10 @@ function ShapeVisualizer({ answerPoints, userPoints, width=300, height=300 }) {
   const boxH = maxY - minY || 1;
 
   const margin = 10;
-  const viewBox = `${minX - margin} ${minY - margin} ${boxW + margin*2} ${boxH + margin*2}`;
+  const viewBox = `${minX - margin} ${minY - margin} ${boxW + margin * 2} ${boxH + margin * 2}`;
 
   const answerPath = toPathD(answerPoints);
-  const userPath   = toPathD(userPoints);
+  const userPath = toPathD(userPoints);
 
   return (
     <svg

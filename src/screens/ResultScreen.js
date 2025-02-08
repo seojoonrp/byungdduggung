@@ -12,7 +12,7 @@ function ResultScreen({ department }) {
   };
 
   return (
-    <div className="result-container">
+    <div className="main-container">
       <h1 className="result-similarity">유사도 : {similarity.toFixed(4)}</h1>
       <Score onSimilarityChange={handleSimilarityChange} />
       <h1 className="result-similarity">학과 : {department}</h1>
