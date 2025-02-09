@@ -21,10 +21,25 @@
 }
 
 .visualizer {
+  display: flex;
+  position: relative;
+  align-items: flex-end;
+  justify-content: center;
   width: 280px;
+  height: 280px;
+  margin-top: 10px;
+  margin-bottom: 23px;
   background-color: #fcfaed;
   border: 1.5px solid #798645;
   border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 23px;
+}
+
+.visualizer-svg {
+  position: absolute;
+  top: 17.5px;
+  left: 41.7px;
+}
+
+.score-bottle-cap-image {
+  margin-bottom: 30px;
 }

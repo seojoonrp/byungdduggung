@@ -2,16 +2,22 @@ import React from "react";
 
 // (1) 정답 이미지 배열만 별도로 내보냄
 export const answerSegments = [
-  { ratio: 0.25, deltaAngle: 45 },
-  { ratio: 0.25, deltaAngle: 90 },
-  { ratio: 0.4,  deltaAngle: -135 },
-  { ratio: 0.1,  deltaAngle: 90 },
+  { ratio: 0.22508, deltaAngle: 45 },
+  { ratio: 0.22508, deltaAngle: 90 },
+  { ratio: 0.20000, deltaAngle: -135 },
+  { ratio: 0.04000, deltaAngle: 90 },
+  { ratio: 0.04000, deltaAngle: 180 },
+  { ratio: 0.05000, deltaAngle: 90 },
+  { ratio: 0.04000, deltaAngle: 90 },
+  { ratio: 0.04000, deltaAngle: 180 },
+  { ratio: 0.06992, deltaAngle: 90 },
+  { ratio: 0.06992, deltaAngle: -90 },
 ];
 
 // (2) 컴포넌트 로직에서 이 answerSegments를 import 해서 사용해도 되고,
 //    직접 여기서 써도 되지만, 편의상 그대로 사용
 const AnswerShapeRenderer = () => {
-  const totalLength = 50;       
+  const totalLength = 50;
   const barWidth = 1.5;
   const startAngle = -90;
   const startPivot = { x: 15, y: 25 };

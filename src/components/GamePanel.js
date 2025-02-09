@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import "../styles/GamePanel.css";
 
-import PanelBorderImage from "../images/GameScreen/PanelBorderImage.svg";
 import BottleCapImage from "../images/GameScreen/BottleCapImage.svg";
 
-/** (추가) shapeSegmentsGlobal: 컴포넌트 외부에 있는 변수
- *  'named export'로 내보내서 다른 파일에서 import 가능
- */
 export let shapeSegmentsGlobal = [];
 
 const GamePanel = () => {
   const capWidth = 75;
   const barWidth = 2.5;
   const totalLength = Math.PI * capWidth; // 병뚜껑 둘레
+  const initialCoordX = 104;
+  const initialCoordY = 338;
 
   const fillSpeed = 0.0035;
   const rotationSpeed = 2;
@@ -35,7 +33,7 @@ const GamePanel = () => {
   const [prevAngle, setPrevAngle] = useState(-90);
 
   // (F) 현재 막대 회전축 (SVG 좌표)
-  const [curPivot, setCurPivot] = useState({ x: 105, y: 338 });
+  const [curPivot, setCurPivot] = useState({ x: initialCoordX, y: initialCoordY });
 
   // (G) 마우스 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
@@ -46,7 +44,7 @@ const GamePanel = () => {
   // (I) 게임 종료 여부
   const [gameOver, setGameOver] = useState(false);
 
-  /** (1) 마우스가 눌려 있지 않고 게임 오버가 아니며, 막대가 1 미만이면 → 채우기 */
+  // (1) 마우스가 눌려 있지 않고 게임 오버가 아니며, 막대가 1 미만이면 채우기
   useEffect(() => {
     if (!gameOver && !isClicked && curRatio < 1) {
       const fillInterval = setInterval(() => {
@@ -57,7 +55,7 @@ const GamePanel = () => {
     }
   }, [gameOver, isClicked, curRatio]);
 
-  /** (2) 마우스가 눌려 있고 게임 오버가 아니면 → 회전 */
+  // (2) 마우스가 눌려 있고 게임 오버가 아니면 회전
   useEffect(() => {
     if (!gameOver && isClicked) {
       const rotateInterval = setInterval(() => {
@@ -68,7 +66,7 @@ const GamePanel = () => {
     }
   }, [gameOver, isClicked]);
 
-  /** (3) 마우스 다운(클릭 시작) */
+  // (3) 마우스 다운(클릭 시작)
   const handleMouseDown = () => {
     if (gameOver) return; // 이미 끝났으면 무시
 
@@ -79,12 +77,12 @@ const GamePanel = () => {
     setIsClicked(true);
   };
 
-  /** (4) 마우스 업(클릭 해제) → 세그먼트 확정 */
+  // (4) 마우스 업(클릭 해제)시 세그먼트 확정
   const handleMouseUp = () => {
     if (gameOver) return; // 이미 끝났으면 무시
 
     const segRatio = curRatio - confirmedRatio; // 이번 세그먼트 비율
-    const segSize = segRatio * totalLength;     // 픽셀 길이
+    const segSize = segRatio * totalLength; // 픽셀 길이
 
     // Δangle = 지금 각도 - 이전 세그먼트 끝 각도
     const newAngle = curRotation;
@@ -99,8 +97,7 @@ const GamePanel = () => {
     // (4-2) Shape/DTW 세그먼트 추가
     setShapeSegments((prev) => {
       const updated = [...prev, { ratio: segRatio, deltaAngle }];
-      // (추가) 전역 변수 shapeSegmentsGlobal도 동기화
-      shapeSegmentsGlobal = updated;
+      shapeSegmentsGlobal = updated; // 전역 변수 shapeSegmentsGlobal도 동기화
       return updated;
     });
 
@@ -117,14 +114,12 @@ const GamePanel = () => {
     // 마지막 세그먼트(막대가 100% 이상)
     if (curRatio >= 1) {
       setCurRatio(1);
-      // 한 번 더 shapeSegments에 최종 세그먼트 추가? 
-      // (이미 위에서 1회 추가함)
-      // 게임 오버
+
       setGameOver(true);
     }
   };
 
-  /** pivot(회전축) 업데이트 함수 */
+  // pivot(회전축) 업데이트 함수
   const calculateNewPivot = (segmentSize, absoluteAngle) => {
     const radRotation = (absoluteAngle * Math.PI) / 180;
     return {
@@ -133,10 +128,10 @@ const GamePanel = () => {
     };
   };
 
-  /** (5) 이미 확정된 세그먼트 렌더링 */
+  // (5) 이미 확정된 세그먼트 렌더링
   const renderConfirmedSegments = () => {
-    let x = 105;
-    let y = 338;
+    let x = initialCoordX;
+    let y = initialCoordY;
 
     return renderSegments.map((seg, idx) => {
       const rad = (seg.angle * Math.PI) / 180;

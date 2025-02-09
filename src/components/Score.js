@@ -4,7 +4,6 @@ import { shapeSegmentsGlobal } from './GamePanel.js';
 
 import "../styles/Score.css";
 
-import PanelBorderImage from "../images/GameScreen/PanelBorderImage.svg";
 import BottleCapImage from "../images/GameScreen/BottleCapImage.svg";
 
 /** 
@@ -106,11 +105,8 @@ function dtw2D(seqA, seqB) {
   return dp[n][m];
 }
 
-/** 
- * 4) 점수 스케일링: 1~100 
- *    distance=0 → 100점, distance>=maxDist → 1점
- *    중간은 선형 보간
- */
+
+// 4) 점수 스케일링: 1~100
 function scaledScore(distance) {
   const maxDist = 800;  // 필요에 따라 조절 (프로젝트 상황별)
   const d = Math.min(distance, maxDist);  // 넘으면 clamp
@@ -119,11 +115,8 @@ function scaledScore(distance) {
   return score; // float, 필요시 Math.round(score)
 }
 
-/** 
- * compareSegments2D:
- *  (ratio, deltaAngle) → 2D 시퀀스 샘플링 → DTW → distance → 1~100 점수
- *  + samplePoints(정답/사용자) 반환 (시각화용)
- */
+// compareSegments2D:
+// (ratio, deltaAngle) → 2D 시퀀스 샘플링 → DTW → distance → 1~100 점수 + samplePoints(정답/사용자) 반환
 function compareSegments2D() {
   console.log("Answer segments:", answerSegments);
   console.log("User shape segments:", shapeSegmentsGlobal);
@@ -156,10 +149,7 @@ function compareSegments2D() {
   };
 }
 
-/** 
- * 5) 시각화 보조:
- *    폴리라인([ {x, y}, ...])을 SVG path 로 변환
- */
+// 5) 시각화 보조 함수
 function toPathD(points) {
   if (points.length === 0) return "";
   let d = `M ${points[0].x},${points[0].y}`;
@@ -169,7 +159,6 @@ function toPathD(points) {
   return d;
 }
 
-/** bounding box */
 function getBoundingBox(...arrays) {
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   for (let arr of arrays) {
@@ -183,7 +172,7 @@ function getBoundingBox(...arrays) {
   return { minX, maxX, minY, maxY };
 }
 
-/** ShapeVisualizer: 두 폴리라인을 SVG로 그려 확인 */
+// 6) 시각화 (ShapeVisualizer)
 function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
   if (!answerPoints || !userPoints) return null;
 
@@ -202,29 +191,23 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
       width={width}
       height={height}
       viewBox={viewBox}
+      className="visualizer-svg"
     >
       {/* 정답 파랑 */}
       <path d={answerPath} stroke="#BAC677" strokeWidth="0.8" fill="none" />
-      {answerPoints.map((p, i) => (
-        <circle key={`A${i}`} cx={p.x} cy={p.y} r={0.2} fill="#BAC677" />
-      ))}
       {/* 유저 빨강 */}
       <path d={userPath} stroke="#798645" strokeWidth="0.8" fill="none" />
-      {userPoints.map((p, i) => (
-        <circle key={`U${i}`} cx={p.x} cy={p.y} r={0.2} fill="#798645" />
-      ))}
     </svg>
   );
 }
 
-/** 
- * 6) Score 컴포넌트
- *    - 1~100 점수 + 시각화
- */
+// 7) 실제 컴포넌트
 function Score() {
   const [score, setScore] = useState(0);
   const [answerPts, setAnswerPts] = useState([]);
   const [userPts, setUserPts] = useState([]);
+
+  const capWidth = 95;
 
   useEffect(() => {
     const result = compareSegments2D();
@@ -238,11 +221,17 @@ function Score() {
       <span className="your-similarity-is">당신의 유사도는...!</span>
       <span className="similarity">{score.toFixed(2)}%</span>
       <div className="visualizer">
+        <img
+          src={BottleCapImage}
+          alt="병뚜껑 이미지"
+          className="score-bottle-cap-image"
+          style={{ width: `${capWidth}px` }}
+        />
         <ShapeVisualizer
           answerPoints={answerPts}
           userPoints={userPts}
-          width={280}
-          height={280}
+          width={209.4}
+          height={209.4}
         />
       </div>
     </div>
