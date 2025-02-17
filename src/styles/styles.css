@@ -37,9 +37,32 @@
   text-align: center;
   border: none;
   outline: none;
+  position: relative;
 }
 .start-department-input::placeholder {
   color: #4f5936;
+}
+
+.start-dropdown-list {
+  position: absolute;
+  width: 180px;
+  top: calc(50% + 80px);
+  left: calc(50% - 90px);
+  background: transparent;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.start-dropdown-item {
+  font-size: 12px;
+  font-family: "Freesentation-4Regular", sans-serif;
+  color: #4f5936;
+  background-color: #fffdf0;
+  cursor: pointer;
+  border: 1px solid #798645;
+  padding: 2.5px;
+  margin: 1.5px;
 }
 
 .main-button {

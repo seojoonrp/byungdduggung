@@ -12,11 +12,39 @@ import MainLogoImage from "../images/StartScreen/MainLogoImage.svg";
 function StartScreen({ department, setDepartment }) {
   const navigate = useNavigate();
 
-  const [placeholder, setPlaceholder] = useState("재학 중인 학과를 입력해주세요");
+  const [placeholder, setPlaceholder] = useState("재학 중인 학과를 검색해보세요");
+
+  const [inputValue, setInputValue] = useState("");
+  const [filteredDepartments, setFilteredDepartments] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    const filtered = departments.filter((dept) => dept.includes(value)).sort().slice(0, 10);
+
+    setFilteredDepartments(filtered);
+    setIsDropdownOpen(filtered.length > 0);
+  }
+  const handleSelectedDepartment = (dept) => {
+    setDepartment(dept);
+    setInputValue(dept);
+    setIsDropdownOpen(false);
+  }
 
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const openDescription = () => setIsDescriptionOpen(true);
   const closeDescription = () => setIsDescriptionOpen(false);
+
+  const handleStartGame = () => {
+    if (!department) {
+      alert("학과를 선택해주세요!");
+      return;
+    }
+
+    navigate("/game");
+  }
 
   return (
     <div className="main-container">
@@ -30,16 +58,39 @@ function StartScreen({ department, setDepartment }) {
         alt="메인 로고 이미지"
         className="start-logo"
       />
-      <select
-        className="start-department-dropdown"
-        value={department}
-        onChange={(e) => setDepartment(e.target.value)}
-      >
-        <option value="" disabled>학과를 선택하세요</option>
-        {departments.map((dept, index) => (
-          <option key={index} value={dept}>{dept}</option>
-        ))}
-      </select>
+
+      <div className="start-department-container">
+        <input
+          type="text"
+          className="start-department-input"
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={handleInputChange}
+          onFocus={(e) => {
+            setPlaceholder("");
+            handleInputChange(e);
+          }}
+          onBlur={(e) => {
+            setTimeout(() => setIsDropdownOpen(false), 100);
+            setPlaceholder("재학 중인 학과를 검색해보세요");
+          }}
+        />
+
+        {isDropdownOpen && (
+          <ul className="start-dropdown-list">
+            {filteredDepartments.map((dept, index) => (
+              <li
+                key={index}
+                className="start-dropdown-item"
+                onClick={() => handleSelectedDepartment(dept)}
+              >
+                {dept}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
       <button
         className="main-button lightgreen"
         onClick={openDescription}
@@ -53,7 +104,7 @@ function StartScreen({ department, setDepartment }) {
       </button>
       <button
         className="main-button darkgreen"
-        onClick={() => navigate('/game')}
+        onClick={handleStartGame}
       >
         시작하기!
       </button>

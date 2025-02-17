@@ -40,6 +40,8 @@ function ResultScreen({ department }) {
         유사도는 어떻게 측정되나요?
       </button>
 
+      <span>{department}</span>
+
       <HowCalculated
         isOpen={isHowCalculatedOpen}
         onClose={closeHowCalculated}
