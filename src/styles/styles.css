@@ -118,7 +118,7 @@
   cursor: pointer;
 }
 
-.desc-overlay {
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -133,12 +133,19 @@
 .desc {
   background: transparent;
   background-image: url("../images/StartScreen/GameDescription.svg");
-  width: 310px;
-  height: 466.2px;
+  width: 300px;
+  height: 450px;
+  position: relative;
+}
+.how-calc {
+  background: transparent;
+  background-image: url("../images/ResultScreen/HowCalculatedImage.svg");
+  width: 300px;
+  height: 103.2px;
   position: relative;
 }
 
-.desc-close-button {
+.modal-close-button {
   position: absolute;
   top: 10px;
   right: 10px;
