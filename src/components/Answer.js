@@ -2,16 +2,16 @@ import React from "react";
 
 // (1) 정답 이미지 배열만 별도로 내보냄
 export const answerSegments = [
-  { ratio: 0.22508, deltaAngle: 45 },
-  { ratio: 0.22508, deltaAngle: 90 },
-  { ratio: 0.20000, deltaAngle: -135 },
-  { ratio: 0.04000, deltaAngle: 90 },
-  { ratio: 0.04000, deltaAngle: 180 },
-  { ratio: 0.05000, deltaAngle: 90 },
-  { ratio: 0.04000, deltaAngle: 90 },
-  { ratio: 0.04000, deltaAngle: 180 },
-  { ratio: 0.06992, deltaAngle: 90 },
-  { ratio: 0.06992, deltaAngle: -90 },
+  { ratio: 0.225, deltaAngle: 45 },
+  { ratio: 0.225, deltaAngle: 90 },
+  { ratio: 0.200, deltaAngle: -135 },
+  { ratio: 0.040, deltaAngle: 90 },
+  { ratio: 0.040, deltaAngle: 180 },
+  { ratio: 0.050, deltaAngle: 90 },
+  { ratio: 0.040, deltaAngle: 90 },
+  { ratio: 0.040, deltaAngle: 180 },
+  { ratio: 0.070, deltaAngle: 90 },
+  { ratio: 0.070, deltaAngle: -90 },
 ];
 
 // (2) 컴포넌트 로직에서 이 answerSegments를 import 해서 사용해도 되고,

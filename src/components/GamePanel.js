@@ -5,7 +5,7 @@ import BottleCapImage from "../images/GameScreen/BottleCapImage.svg";
 
 export let shapeSegmentsGlobal = [];
 
-const GamePanel = () => {
+const GamePanel = ({ isActive }) => {
   const capWidth = 75;
   const barWidth = 2.5;
   const totalLength = Math.PI * capWidth; // 병뚜껑 둘레
@@ -46,29 +46,29 @@ const GamePanel = () => {
 
   // (1) 마우스가 눌려 있지 않고 게임 오버가 아니며, 막대가 1 미만이면 채우기
   useEffect(() => {
-    if (!gameOver && !isClicked && curRatio < 1) {
+    if (isActive && !gameOver && !isClicked && curRatio < 1) {
       const fillInterval = setInterval(() => {
         setCurRatio((prev) => Math.min(prev + fillSpeed, 1));
       }, frameTime);
 
       return () => clearInterval(fillInterval);
     }
-  }, [gameOver, isClicked, curRatio]);
+  }, [isActive, gameOver, isClicked, curRatio]);
 
   // (2) 마우스가 눌려 있고 게임 오버가 아니면 회전
   useEffect(() => {
-    if (!gameOver && isClicked) {
+    if (isActive && !gameOver && isClicked) {
       const rotateInterval = setInterval(() => {
         setCurRotation((prev) => prev + rotationSpeed);
       }, frameTime);
 
       return () => clearInterval(rotateInterval);
     }
-  }, [gameOver, isClicked]);
+  }, [isActive, gameOver, isClicked]);
 
   // (3) 마우스 다운(클릭 시작)
   const handleMouseDown = () => {
-    if (gameOver) return; // 이미 끝났으면 무시
+    if (!isActive || gameOver) return; // 게임이 활성화되지 않았거나 이미 끝났으면 무시
 
     const segRatio = curRatio - confirmedRatio;
     const segSize = segRatio * totalLength;
@@ -79,7 +79,7 @@ const GamePanel = () => {
 
   // (4) 마우스 업(클릭 해제)시 세그먼트 확정
   const handleMouseUp = () => {
-    if (gameOver) return; // 이미 끝났으면 무시
+    if (!isActive || gameOver) return; // 게임이 활성화되지 않았거나 이미 끝났으면 무시
 
     const segRatio = curRatio - confirmedRatio; // 이번 세그먼트 비율
     const segSize = segRatio * totalLength; // 픽셀 길이
