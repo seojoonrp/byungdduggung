@@ -6,7 +6,6 @@ import "../styles/styles.css";
 import Timer from "../components/Timer";
 import Countdown from "../components/Countdown";
 import GamePanel from "../components/GamePanel";
-import AnswerShapeRenderer from "../components/Answer";
 
 function GameScreen() {
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ function GameScreen() {
       />
       <GamePanel isActive={isCountdownComplete} />
       {!isCountdownComplete && <Countdown onComplete={handleCountdownComplete} />}
-      {/* <AnswerShapeRenderer /> */}
       <button
         className="main-button lightgreen"
         style={{ marginTop: "15px" }}
