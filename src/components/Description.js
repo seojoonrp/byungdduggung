@@ -9,7 +9,6 @@ const Description = ({ isOpen, onClose }) => {
         <button className="desc-close-button" onClick={onClose}>
           ✕
         </button>
-        <span>게임 설명</span>
       </div>
     </div>
   );
