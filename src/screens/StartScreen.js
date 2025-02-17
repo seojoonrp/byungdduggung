@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/styles.css";
 
 import Description from "../components/Description";
+import departments from "../components/Departments";
 
 import TitleImage from "../images/StartScreen/TitleImage.svg";
 import MainLogoImage from "../images/StartScreen/MainLogoImage.svg";
@@ -29,15 +30,16 @@ function StartScreen({ department, setDepartment }) {
         alt="메인 로고 이미지"
         className="start-logo"
       />
-      <input
-        type="text"
-        className="start-department-input"
-        placeholder={placeholder}
+      <select
+        className="start-department-dropdown"
         value={department}
         onChange={(e) => setDepartment(e.target.value)}
-        onFocus={() => setPlaceholder("")}
-        onBlur={() => setPlaceholder("재학 중인 학과를 입력해주세요")}
-      />
+      >
+        <option value="" disabled>학과를 선택하세요</option>
+        {departments.map((dept, index) => (
+          <option key={index} value={dept}>{dept}</option>
+        ))}
+      </select>
       <button
         className="main-button lightgreen"
         onClick={openDescription}
