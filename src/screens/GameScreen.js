@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/styles.css";
 
 import Timer from "../components/Timer";
+import Countdown from "../components/Countdown";
 import GamePanel from "../components/GamePanel";
 import AnswerShapeRenderer from "../components/Answer";
 
 function GameScreen() {
   const navigate = useNavigate();
 
+  const [isCountdownComplete, setIsCountdownComplete] = useState(false);
+  const handleCountdownComplete = () => {
+    setIsCountdownComplete(true);
+  }
+
   return (
     <div className="main-container">
       <Timer
         duration={60}
         onComplete={() => navigate('/result')}
+        isActive={isCountdownComplete}
       />
-      <GamePanel />
+      <GamePanel isActive={isCountdownComplete} />
+      {!isCountdownComplete && <Countdown onComplete={handleCountdownComplete} />}
       {/* <AnswerShapeRenderer /> */}
       <button
         className="main-button lightgreen"

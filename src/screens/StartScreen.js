@@ -22,7 +22,7 @@ function StartScreen({ department, setDepartment }) {
     const value = e.target.value;
     setInputValue(value);
 
-    const filtered = departments.filter((dept) => dept.includes(value)).sort().slice(0, 10);
+    const filtered = departments.filter((dept) => dept.includes(value)).sort().slice(0, 7);
 
     setFilteredDepartments(filtered);
     setIsDropdownOpen(filtered.length > 0);

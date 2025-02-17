@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import "../styles/styles.css";
 
-function Timer({ duration, onComplete }) {
+function Timer({ duration, onComplete, isActive }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (!isActive) return;
+
     const interval = 100;
     const totalSteps = duration * 1000 / interval;
     let curStep = 0;
@@ -21,7 +23,7 @@ function Timer({ duration, onComplete }) {
     }, interval);
 
     return () => clearInterval(timer);
-  }, [duration, onComplete]);
+  }, [duration, onComplete, isActive]);
 
   return (
     <div className="timer-bar">
