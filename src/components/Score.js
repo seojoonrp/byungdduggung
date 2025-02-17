@@ -177,14 +177,23 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
   if (!answerPoints || !userPoints) return null;
 
   const { minX, maxX, minY, maxY } = getBoundingBox(answerPoints, userPoints);
-  const boxW = maxX - minX || 1;
-  const boxH = maxY - minY || 1;
+  const boxW = (maxX - minX) || 1;
+  const boxH = (maxY - minY) || 1;
 
+  // 원하는 여백
   const margin = 10;
-  const viewBox = `${minX - margin} ${minY - margin} ${boxW + margin * 2} ${boxH + margin * 2}`;
+
+  // viewBox를 "0 0 boxW boxH" 로 고정 (왼쪽위=0,0, 오른쪽아래=boxW, boxH)
+  const viewBox = `0 0 ${boxW + margin*2} ${boxH + margin*2}`;
 
   const answerPath = toPathD(answerPoints);
   const userPath = toPathD(userPoints);
+
+  // translate에 -minX, -minY를 적용해
+  // 가장 왼쪽(minX)이 0, 가장 위(minY)가 0이 되도록 이동
+  // 추가로 margin도 더해서 살짝 여백을 둠
+  const translateX = -minX + 14.5;
+  const translateY = -minY + 14.8;
 
   return (
     <svg
@@ -193,13 +202,16 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
       viewBox={viewBox}
       className="visualizer-svg"
     >
-      {/* 정답 파랑 */}
-      <path d={answerPath} stroke="#BAC677" strokeWidth="0.8" fill="none" />
-      {/* 유저 빨강 */}
-      <path d={userPath} stroke="#798645" strokeWidth="0.8" fill="none" />
+      <g transform={`translate(${translateX}, ${translateY})`}>
+        {/* 정답(예: 초록) */}
+        <path d={answerPath} stroke="#BAC677" strokeWidth="0.8" fill="none" />
+        {/* 사용자(예: 진한 초록) */}
+        <path d={userPath} stroke="#798645" strokeWidth="0.8" fill="none" />
+      </g>
     </svg>
   );
 }
+
 
 // 7) 실제 컴포넌트
 function Score() {
@@ -230,7 +242,7 @@ function Score() {
         <ShapeVisualizer
           answerPoints={answerPts}
           userPoints={userPts}
-          width={209.4}
+          width={200}
           height={209.4}
         />
       </div>
