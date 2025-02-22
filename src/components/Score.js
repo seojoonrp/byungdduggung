@@ -186,7 +186,7 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
   
   const scaleFactor = 5.78;    // 1.5배 확대
   const translateX = 104.7;      // x방향 50만큼 이동
-  const translateY = 300; 
+  const translateY = 249; 
   return (
     <svg
       width={width}
@@ -232,7 +232,7 @@ function Score() {
           src={BottleCapImage}
           alt="병뚜껑 이미지"
           className="score-bottle-cap-image"
-          style={{ width: `${capWidth}px` }}
+          style={{ width: `${capWidth}px`,transform: "translateY(-25px)"}}
         />
         <ShapeVisualizer
           answerPoints={answerPts}
