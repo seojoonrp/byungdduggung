@@ -176,25 +176,17 @@ function getBoundingBox(...arrays) {
 function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
   if (!answerPoints || !userPoints) return null;
 
-  const { minX, maxX, minY, maxY } = getBoundingBox(answerPoints, userPoints);
-  const boxW = (maxX - minX) || 1;
-  const boxH = (maxY - minY) || 1;
+  // 1) 고정된 viewBox
+  //    예: (0,0)~(400,300)
+  const viewBox = "0 0 400 300";
 
-  // 원하는 여백
-  const margin = 10;
-
-  // viewBox를 "0 0 boxW boxH" 로 고정 (왼쪽위=0,0, 오른쪽아래=boxW, boxH)
-  const viewBox = `0 0 ${boxW + margin*2} ${boxH + margin*2}`;
-
+  // 2) path 변환
   const answerPath = toPathD(answerPoints);
-  const userPath = toPathD(userPoints);
-
-  // translate에 -minX, -minY를 적용해
-  // 가장 왼쪽(minX)이 0, 가장 위(minY)가 0이 되도록 이동
-  // 추가로 margin도 더해서 살짝 여백을 둠
-  const translateX = -minX + 14.5;
-  const translateY = -minY + 14.8;
-
+  const userPath   = toPathD(userPoints);
+  
+  const scaleFactor = 5.78;    // 1.5배 확대
+  const translateX = 104.7;      // x방향 50만큼 이동
+  const translateY = 300; 
   return (
     <svg
       width={width}
@@ -202,11 +194,14 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
       viewBox={viewBox}
       className="visualizer-svg"
     >
-      <g transform={`translate(${translateX}, ${translateY})`}>
-        {/* 정답(예: 초록) */}
-        <path d={answerPath} stroke="#BAC677" strokeWidth="0.8" fill="none" />
-        {/* 사용자(예: 진한 초록) */}
-        <path d={userPath} stroke="#798645" strokeWidth="0.8" fill="none" />
+      <g transform={`
+        translate(${translateX}, ${translateY}) 
+        scale(${scaleFactor})
+      `}>
+        {/* 정답 폴리라인(연두색) */}
+        <path d={answerPath} stroke="#BAC677" strokeWidth="2*(1/scaleFactor)" fill="none" strokeLinejoin="round"/>
+        {/* 사용자 폴리라인(진한 초록) */}
+        <path d={userPath} stroke="#798645" strokeWidth="2*(1/scaleFactor)" fill="none" strokeLinejoin="round" />
       </g>
     </svg>
   );
