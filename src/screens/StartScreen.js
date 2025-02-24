@@ -8,6 +8,7 @@ import departments from "../components/Departments";
 
 import TitleImage from "../images/StartScreen/TitleImage.svg";
 import MainLogoImage from "../images/StartScreen/MainLogoImage.svg";
+import Leaderboard from "../components/Leaderboards/Leaderboard";
 
 function StartScreen({ department, setDepartment }) {
   const navigate = useNavigate();
@@ -36,6 +37,10 @@ function StartScreen({ department, setDepartment }) {
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const openDescription = () => setIsDescriptionOpen(true);
   const closeDescription = () => setIsDescriptionOpen(false);
+
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
+  const openLeaderboard = () => setIsLeaderboardOpen(true);
+  const closeLeaderboard = () => setIsLeaderboardOpen(false);
 
   const handleStartGame = () => {
     if (!department) {
@@ -99,6 +104,7 @@ function StartScreen({ department, setDepartment }) {
       </button>
       <button
         className="main-button lightgreen"
+        onClick={openLeaderboard}
       >
         리더보드 보기
       </button>
@@ -112,6 +118,10 @@ function StartScreen({ department, setDepartment }) {
       <Description
         isOpen={isDescriptionOpen}
         onClose={closeDescription}
+      />
+      <Leaderboard
+        isOpen={isLeaderboardOpen}
+        onClose={closeLeaderboard}
       />
     </div>
   );
