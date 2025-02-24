@@ -1,10 +1,10 @@
 import React from "react";
 
-const TotalPlace = ({ rank, nickname, department, similarity, color }) => {
+const DepartmentPlace = ({ rank, nickname, similarity, color }) => {
   return (
     <div
       className="lead-place-box"
-      style={{ borderColor: color }}
+      style={{ borderColor: color, height: "48px" }}
     >
       <span
         className="lead-place-text-rank"
@@ -12,10 +12,12 @@ const TotalPlace = ({ rank, nickname, department, similarity, color }) => {
       >
         #{rank}.
       </span>
-      <div className="lead-place-nickname-container">
-        <span className="lead-place-text-nickname">{nickname}</span>
-        <span className="lead-place-text-department">{department}</span>
-      </div>
+      <span
+        className="lead-place-text-nickname"
+        style={{ marginRight: "25px" }}
+      >
+        {nickname}
+      </span>
       <span
         className="lead-place-text-similarity"
         style={{ color: color }}
@@ -26,4 +28,4 @@ const TotalPlace = ({ rank, nickname, department, similarity, color }) => {
   );
 }
 
-export default TotalPlace;
+export default DepartmentPlace;

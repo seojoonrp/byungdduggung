@@ -36,12 +36,12 @@ const Leaderboard = ({ isOpen, onClose }) => {
         </div>
         {
           activeTab === "Total" ?
-            <TotalLeaderboard
-              data={data}
-            >
-            </TotalLeaderboard> :
-            <DepartmentLeaderboard>
-            </DepartmentLeaderboard>
+            <TotalLeaderboard data={data} />
+            :
+            <>
+              <button>학과선택</button>
+              <DepartmentLeaderboard data={data} />
+            </>
         }
       </div>
     </div>
