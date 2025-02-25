@@ -12,7 +12,7 @@ function ResultScreen({ department }) {
   const closeHowCalculated = () => setIsHowCalculatedOpen(false);
 
   const handleRestart = () => {
-    navigate("/");
+    navigate("/game");
   }
 
   // Score 컴포넌트로부터 similarity를 전달받아 state에 저장
