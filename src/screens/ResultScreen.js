@@ -11,6 +11,10 @@ function ResultScreen({ department }) {
   const openHowCalculated = () => setIsHowCalculatedOpen(true);
   const closeHowCalculated = () => setIsHowCalculatedOpen(false);
 
+  const handleRestart = () => {
+    navigate("/");
+  }
+
   // Score 컴포넌트로부터 similarity를 전달받아 state에 저장
   const handleSimilarityChange = (val) => {
     setSimilarity(val);
@@ -21,6 +25,7 @@ function ResultScreen({ department }) {
       <Score onSimilarityChange={handleSimilarityChange} />
       <button
         className="main-button lightgreen"
+        onClick={handleRestart}
       >
         다시하기
       </button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './styles/fonts.css';
@@ -7,8 +7,13 @@ import GameScreen from './screens/GameScreen';
 import ResultScreen from './screens/ResultScreen';
 
 function App() {
-  const [department, setDepartment] = useState("");
-  const [similarity, setSimilarity] = useState(0);
+  const [department, setDepartment] = useState(() => {
+    return localStorage.getItem("department") || "";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("department", department);
+  }, [department]);
 
   return (
     <Router>
@@ -20,7 +25,7 @@ function App() {
         <Route path='/game' element={<GameScreen />} />
         <Route
           path='/result'
-          element={<ResultScreen department={department} similarity={similarity} />}
+          element={<ResultScreen department={department} />}
         />
       </Routes>
     </Router>

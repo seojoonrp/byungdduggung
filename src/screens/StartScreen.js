@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/styles.css";
@@ -15,9 +15,13 @@ function StartScreen({ department, setDepartment }) {
 
   const [placeholder, setPlaceholder] = useState("재학 중인 학과를 검색해보세요");
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(department);
   const [filteredDepartments, setFilteredDepartments] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    setInputValue(department);
+  }, [department]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
