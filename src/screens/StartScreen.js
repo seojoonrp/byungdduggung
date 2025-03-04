@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/styles.css";
 
 import Description from "../components/Description";
-import departments from "../components/Departments";
+import departments from "../data/Departments";
 
 import TitleImage from "../images/StartScreen/TitleImage.svg";
 import MainLogoImage from "../images/StartScreen/MainLogoImage.svg";
