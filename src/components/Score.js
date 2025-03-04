@@ -83,64 +83,114 @@ function pointDistance2D(a, b) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-function dtw2D(seqA, seqB) {
-  const n = seqA.length;
-  const m = seqB.length;
-
-  const dp = Array.from({ length: n + 1 }, () =>
-    Array(m + 1).fill(Infinity)
-  );
-  dp[0][0] = 0;
-
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= m; j++) {
-      const cost = pointDistance2D(seqA[i - 1], seqB[j - 1]);
-      dp[i][j] = cost + Math.min(
-        dp[i - 1][j],
-        dp[i][j - 1],
-        dp[i - 1][j - 1]
-      );
+function hausdorff2D(seqA, seqB) {
+  // A->B
+  let maxAB = 0;
+  for (const a of seqA) {
+    let minDist = Infinity;
+    for (const b of seqB) {
+      const dist = pointDistance2D(a, b);
+      if (dist < minDist) {
+        minDist = dist;
+      }
+    }
+    if (minDist > maxAB) {
+      maxAB = minDist;
     }
   }
-  return dp[n][m];
+  // B->A
+  let maxBA = 0;
+  for (const b of seqB) {
+    let minDist = Infinity;
+    for (const a of seqA) {
+      const dist = pointDistance2D(a, b);
+      if (dist < minDist) {
+        minDist = dist;
+      }
+    }
+    if (minDist > maxBA) {
+      maxBA = minDist;
+    }
+  }
+
+  return Math.max(maxAB, maxBA);
 }
 
 
-// 4) 점수 스케일링: 1~100
+/**
+ * 4) 점수 스케일링 (0~100, 지수 방식)
+ *    distance=0 => 100점,
+ *    distance ↑ => 서서히 0점으로 수렴
+ */
 function scaledScore(distance) {
-  const maxDist = 800;  // 필요에 따라 조절 (프로젝트 상황별)
-  const d = Math.min(distance, maxDist);  // 넘으면 clamp
-  const ratio = 1 - (d / maxDist);        // 0~1
-  const score = 1 + 99 * ratio;           // 1~100
-  return score; // float, 필요시 Math.round(score)
-}
+  // 음수 distance 등은 0으로 처리
+  if (distance < 0) distance = 0;
 
+  // (A) 구간 정의: [x1, s1], [x2, s2]
+  //   distance가 x1~x2 사이면 선형 보간
+  const keyPoints = [
+    { x: 0,   s: 100 },
+    { x: 4,   s: 98   },
+    { x: 5,   s: 95.5 },
+    { x: 6,   s: 93   },
+    { x: 7,   s: 92   },
+    { x: 8,   s: 90   },
+    { x: 10,  s: 88   },
+    { x: 12,  s: 85   },
+    { x: 15,  s: 82   },
+    { x: 40,  s: 12   },
+    { x: 60,  s: 5    },
+    { x: 100, s: 0    },
+  ];
+
+  // distance가 keyPoints 마지막 x(=100) 초과면 0점
+  if (distance >= 100) return 0;
+
+  // (B) 선형 보간 함수
+  function lerp(x, x1, y1, x2, y2) {
+    const ratio = (x - x1) / (x2 - x1);
+    return y1 + ratio * (y2 - y1);
+  }
+
+  // (C) distance가 어느 구간에 속하는지 찾고, 선형 보간
+  for (let i = 0; i < keyPoints.length - 1; i++) {
+    const x1 = keyPoints[i].x;
+    const s1 = keyPoints[i].s;
+    const x2 = keyPoints[i + 1].x;
+    const s2 = keyPoints[i + 1].s;
+
+    if (distance >= x1 && distance <= x2) {
+      return lerp(distance, x1, s1, x2, s2);
+    }
+  }
+
+  // 혹시 로직상 여기까지 왔다면 distance > 100
+  return 0;
+}
 // compareSegments2D:
-// (ratio, deltaAngle) → 2D 시퀀스 샘플링 → DTW → distance → 1~100 점수 + samplePoints(정답/사용자) 반환
 function compareSegments2D() {
   console.log("Answer segments:", answerSegments);
   console.log("User shape segments:", shapeSegmentsGlobal);
 
-  const totalLength = 100;  // "전체 막대 길이" 가정
-  const sampleCount = 100;  // 샘플링 구간 수
+  const totalLength = 100;
+  const sampleCount = 100;
 
   // (A) 폴리라인 복원
   const answerVerts = buildVertices(answerSegments, -90, 0, 0, totalLength);
-  const userVerts = buildVertices(shapeSegmentsGlobal, -90, 0, 0, totalLength);
+  const userVerts   = buildVertices(shapeSegmentsGlobal, -90, 0, 0, totalLength);
 
   // (B) 샘플링
   const answerPoints = samplePolyline(answerVerts, sampleCount);
-  const userPoints = samplePolyline(userVerts, sampleCount);
+  const userPoints   = samplePolyline(userVerts,   sampleCount);
 
-  // (C) DTW
-  const distance = dtw2D(answerPoints, userPoints);
+  // (C) Hausdorff 거리 계산
+  const distance = hausdorff2D(answerPoints, userPoints);
 
-  // (D) 1~100 점수 변환
-  const score = scaledScore(distance * 0.5); // 이거는 보정 필요할 수 있음 0.5 값을 조절해서
+  // (D) 점수 변환 (지수, 0~100)
+  const score = scaledScore(distance);
 
-  console.log(`distance = ${distance.toFixed(3)}, score(1~100) = ${score.toFixed(2)}`);
+  console.log(`distance = ${distance.toFixed(3)}, score = ${score.toFixed(2)}`);
 
-  // 시각화/리턴용
   return {
     distance,
     score,
@@ -159,18 +209,6 @@ function toPathD(points) {
   return d;
 }
 
-function getBoundingBox(...arrays) {
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  for (let arr of arrays) {
-    for (let p of arr) {
-      if (p.x < minX) minX = p.x;
-      if (p.x > maxX) maxX = p.x;
-      if (p.y < minY) minY = p.y;
-      if (p.y > maxY) maxY = p.y;
-    }
-  }
-  return { minX, maxX, minY, maxY };
-}
 
 // 6) 시각화 (ShapeVisualizer)
 function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
