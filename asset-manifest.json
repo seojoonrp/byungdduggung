@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/byungdduggung/static/css/main.ee952cef.css",
-    "main.js": "/byungdduggung/static/js/main.fc77d7de.js",
+    "main.js": "/byungdduggung/static/js/main.8a693b18.js",
     "static/js/453.85252157.chunk.js": "/byungdduggung/static/js/453.85252157.chunk.js",
     "static/media/GameDescription.svg": "/byungdduggung/static/media/GameDescription.6b5505d9e625398a7889.svg",
     "static/media/HowCalculatedImage.svg": "/byungdduggung/static/media/HowCalculatedImage.84c62e3368f7c0726a53.svg",
@@ -17,11 +17,11 @@
     "index.html": "/byungdduggung/index.html",
     "static/media/Sha.svg": "/byungdduggung/static/media/Sha.7ac0286a97f7c4914e5cf1ae5e2c26d0.svg",
     "main.ee952cef.css.map": "/byungdduggung/static/css/main.ee952cef.css.map",
-    "main.fc77d7de.js.map": "/byungdduggung/static/js/main.fc77d7de.js.map",
+    "main.8a693b18.js.map": "/byungdduggung/static/js/main.8a693b18.js.map",
     "453.85252157.chunk.js.map": "/byungdduggung/static/js/453.85252157.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ee952cef.css",
-    "static/js/main.fc77d7de.js"
+    "static/js/main.8a693b18.js"
   ]
 }
