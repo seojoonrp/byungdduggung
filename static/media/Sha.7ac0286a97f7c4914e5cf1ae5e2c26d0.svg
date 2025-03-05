@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 323.13 308.95">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #919b67;
+        stroke-miterlimit: 10;
+        stroke-width: 12px;
+      }
+    </style>
+  </defs>
+  <g id="_메인오브젝트" data-name="메인오브젝트">
+    <g>
+      <polyline class="cls-1" points="4.24 294.47 146.82 151.89 289.39 294.47 289.39 6 228.55 6"/>
+      <line class="cls-1" x1="289.39" y1="69.2" x2="323.13" y2="69.2"/>
+      <line class="cls-1" x1="289.39" y1="115.11" x2="323.13" y2="115.11"/>
+    </g>
+  </g>
+</svg>
