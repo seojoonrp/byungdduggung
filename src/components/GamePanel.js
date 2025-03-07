@@ -67,8 +67,10 @@ const GamePanel = ({ isActive }) => {
   }, [isActive, gameOver, isClicked]);
 
   // (3) 마우스 다운(클릭 시작)
-  const handleMouseDown = () => {
-    if (!isActive || gameOver) return; // 게임이 활성화되지 않았거나 이미 끝났으면 무시
+  const handleMouseDown = (e) => {
+    // prevent default 동작 추가
+    if (e && e.preventDefault) e.preventDefault();
+    if (!isActive || gameOver) return;
 
     const segRatio = curRatio - confirmedRatio;
     const segSize = segRatio * totalLength;
@@ -78,8 +80,10 @@ const GamePanel = ({ isActive }) => {
   };
 
   // (4) 마우스 업(클릭 해제)시 세그먼트 확정
-  const handleMouseUp = () => {
-    if (!isActive || gameOver) return; // 게임이 활성화되지 않았거나 이미 끝났으면 무시
+  const handleMouseUp = (e) => {
+    // prevent default 동작 추가
+    if (e && e.preventDefault) e.preventDefault();
+    if (!isActive || gameOver) return;
 
     const segRatio = curRatio - confirmedRatio; // 이번 세그먼트 비율
     const segSize = segRatio * totalLength; // 픽셀 길이
@@ -97,7 +101,7 @@ const GamePanel = ({ isActive }) => {
     // (4-2) Shape/DTW 세그먼트 추가
     setShapeSegments((prev) => {
       const updated = [...prev, { ratio: segRatio, deltaAngle }];
-      shapeSegmentsGlobal = updated; // 전역 변수 shapeSegmentsGlobal도 동기화
+      shapeSegmentsGlobal = updated; // 전역 변수 동기화
       return updated;
     });
 
@@ -162,12 +166,12 @@ const GamePanel = ({ isActive }) => {
   return (
     <div
       className="panel-container"
-      // 기존 onMouseDown, onMouseUp에 추가로 터치 이벤트 핸들러 추가
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onTouchStart={handleMouseDown}
-      onTouchEnd={handleMouseUp}
-      onTouchCancel={handleMouseUp}
+      onContextMenu={(e) => e.preventDefault()}  // 우클릭 메뉴 방지
+      onMouseDown={(e) => { e.preventDefault(); handleMouseDown(e); }}
+      onMouseUp={(e) => { e.preventDefault(); handleMouseUp(e); }}
+      onTouchStart={(e) => { e.preventDefault(); handleMouseDown(e); }}
+      onTouchEnd={(e) => { e.preventDefault(); handleMouseUp(e); }}
+      onTouchCancel={(e) => { e.preventDefault(); handleMouseUp(e); }}
     >
       <img
         src={BottleCapImage}
