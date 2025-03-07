@@ -114,12 +114,11 @@ const GamePanel = ({ isActive }) => {
     // 마지막 세그먼트(막대가 100% 이상)
     if (curRatio >= 1) {
       setCurRatio(1);
-
       setGameOver(true);
     }
   };
 
-  // pivot(회전축) 업데이트 함수
+  // (F) pivot(회전축) 업데이트 함수
   const calculateNewPivot = (segmentSize, absoluteAngle) => {
     const radRotation = (absoluteAngle * Math.PI) / 180;
     return {
@@ -163,8 +162,12 @@ const GamePanel = ({ isActive }) => {
   return (
     <div
       className="panel-container"
+      // 기존 onMouseDown, onMouseUp에 추가로 터치 이벤트 핸들러 추가
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
+      onTouchCancel={handleMouseUp}
     >
       <img
         src={BottleCapImage}
@@ -206,12 +209,11 @@ const GamePanel = ({ isActive }) => {
           </g>
         )}
 
-        {/* 클릭 중이 아닐 때 남은 부분 (빨간+옅은색) */}
+        {/* 클릭 중이 아닐 때 남은 부분 */}
         {!isClicked && !gameOver && (
           <g
             transform={`translate(${curPivot.x}, ${curPivot.y}) rotate(${curRotation})`}
           >
-            {/* 전체 남은 구간(옅은색) */}
             <rect
               x={0}
               y={-barWidth / 2}
@@ -219,7 +221,6 @@ const GamePanel = ({ isActive }) => {
               height={barWidth}
               fill="#BAC677"
             />
-            {/* 현재까지 채워진 부분(빨간색) */}
             <rect
               x={0}
               y={-barWidth / 2}
