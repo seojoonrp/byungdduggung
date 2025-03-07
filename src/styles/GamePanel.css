@@ -8,8 +8,10 @@
   background-color: #fcfaed;
   border: 1.5px solid #798645;
   border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none; /* Safari, iOS */
+  -ms-user-select: none;
 }
-
 .bottle-cap-image {
   height: auto;
   margin-bottom: 80px;
