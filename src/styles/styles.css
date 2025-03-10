@@ -145,6 +145,42 @@
   position: relative;
 }
 
+.nickname-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  background-color: #fffbe9;
+  border: #798645 solid 2px;
+  border-radius: 12px;
+}
+.nickname-text {
+  font-size: 14px;
+  font-family: "Freesentation-4Regular", sans-serif;
+  color: #798645;
+  letter-spacing: -0.2px;
+}
+.nickname-text.bold {
+  font-family: "Freesentation-6SemiBold", sans-serif;
+}
+.nickname-input {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 180px;
+  padding: 5px;
+  color: #4f5936;
+  font-size: 12px;
+  font-family: "Freesentation-4Regular", sans-serif;
+  text-align: center;
+  border: #798645 solid 1px;
+  border-radius: 5px;
+  outline: none;
+}
+.nickname-input::placeholder {
+  color: #aeb4ab;
+}
+
 .lead-background {
   background: transparent;
   background-image: url("../images/LeaderboardBackground.svg");

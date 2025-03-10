@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Score from "../components/Score";
 import HowCalculated from "../components/HowCalculated";
+import Nickname from "../components/Nickname";
 
 function ResultScreen({ department }) {
   const navigate = useNavigate();
@@ -22,6 +24,8 @@ function ResultScreen({ department }) {
 
   return (
     <div className="main-container">
+      <Nickname department={department} />
+
       <Score onSimilarityChange={handleSimilarityChange} />
       <button
         className="main-button lightgreen"
@@ -44,8 +48,6 @@ function ResultScreen({ department }) {
         onClick={openHowCalculated}>
         유사도는 어떻게 측정되나요?
       </button>
-
-      <span>{department}</span>
 
       <HowCalculated
         isOpen={isHowCalculatedOpen}
