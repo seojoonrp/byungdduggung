@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Score from "../components/Score";
 import HowCalculated from "../components/HowCalculated";
 import Nickname from "../components/Nickname";
+import Leaderboard from "../components/Leaderboards/Leaderboard";
 import html2canvas from "html2canvas"; // (이미 캡처 기능을 안 쓰면 제거 가능)
 
 function ResultScreen({ department }) {
@@ -13,6 +14,10 @@ function ResultScreen({ department }) {
 
   const openHowCalculated = () => setIsHowCalculatedOpen(true);
   const closeHowCalculated = () => setIsHowCalculatedOpen(false);
+
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
+  const openLeaderboard = () => setIsLeaderboardOpen(true);
+  const closeLeaderboard = () => setIsLeaderboardOpen(false);
 
   const handleRestart = () => {
     navigate("/game");
@@ -45,13 +50,18 @@ function ResultScreen({ department }) {
       <button className="main-button lightgreen" onClick={handleRestart}>
         다시하기
       </button>
-      <button className="main-button lightgreen">리더보드 보기</button>
+      <button className="main-button lightgreen" onClick={openLeaderboard}>리더보드 보기</button>
       <button className="main-button darkgreen" onClick={handleShare}>
         스토리 공유하기!
       </button>
       <button className="result-how-calculated" onClick={openHowCalculated}>
         유사도는 어떻게 측정되나요?
       </button>
+      <Leaderboard
+        isOpen={isLeaderboardOpen}
+        onClose={closeLeaderboard}
+        initialDepartment={department}
+      />
       <HowCalculated isOpen={isHowCalculatedOpen} onClose={closeHowCalculated} />
     </div>
   );
