@@ -16,7 +16,7 @@
   },
   {
     "nickname": "군구독두ㄱㄱ독",
-    "department": "전기정보공학부",
+    "department": "전기·정보공학부",
     "similarity": 47.18
   },
   {
@@ -28,5 +28,15 @@
     "nickname": "PoPoPoPoP",
     "department": "기계공학부",
     "similarity": 25.58
+  },
+  {
+    "nickname": "주지매의아이폰",
+    "department": "기계공학부",
+    "similarity": 57.62
+  },
+  {
+    "nickname": "주지매의노트북",
+    "department": "기계공학부",
+    "similarity": 12.12
   }
 ]

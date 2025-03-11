@@ -1,42 +1,27 @@
 import React from "react";
 import DepartmentPlace from "./DepartmentPlace";
 
-const DepartmentLeaderboard = ({ data }) => {
+const DepartmentLeaderboard = ({ data, department }) => {
+  const filterByDepartment = (data, department) => {
+    return data.filter(item => item.department === department);
+  };
+
+  const filteredData = filterByDepartment(data, department);
+
   return (
     <div
-      className="lead-place-container"
-      style={{ height: "285px" }}
+      className="lead-place-container department"
+      style={{ height: "283px" }}
     >
-      <DepartmentPlace
-        rank={1}
-        nickname={data[0].nickname}
-        similarity={data[0].similarity}
-        color={"#575E2B"}
-      />
-      <DepartmentPlace
-        rank={2}
-        nickname={data[1].nickname}
-        similarity={data[1].similarity}
-        color={"#626D32"}
-      />
-      <DepartmentPlace
-        rank={3}
-        nickname={data[2].nickname}
-        similarity={data[2].similarity}
-        color={"#798645"}
-      />
-      <DepartmentPlace
-        rank={4}
-        nickname={data[3].nickname}
-        similarity={data[3].similarity}
-        color={"#798645"}
-      />
-      <DepartmentPlace
-        rank={5}
-        nickname={data[4].nickname}
-        similarity={data[4].similarity}
-        color={"#798645"}
-      />
+      {filteredData.map((item, index) => (
+        <DepartmentPlace
+          key={index}
+          rank={index + 1}
+          nickname={item.nickname}
+          similarity={item.similarity}
+          color={index === 0 ? "#575E2B" : index === 1 ? "#626D32" : "#798645"}
+        />
+      ))}
     </div>
   );
 };

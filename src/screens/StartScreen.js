@@ -68,10 +68,11 @@ function StartScreen({ department, setDepartment }) {
         className="start-logo"
       />
 
-      <div className="start-department-container">
+      <>
         <input
           type="text"
-          className="start-department-input"
+          className="nickname-input"
+          style={{ marginTop: 25, marginBottom: 25 }}
           placeholder={placeholder}
           value={inputValue}
           onChange={handleInputChange}
@@ -98,7 +99,7 @@ function StartScreen({ department, setDepartment }) {
             ))}
           </ul>
         )}
-      </div>
+      </>
 
       <button
         className="main-button lightgreen"
@@ -126,6 +127,7 @@ function StartScreen({ department, setDepartment }) {
       <Leaderboard
         isOpen={isLeaderboardOpen}
         onClose={closeLeaderboard}
+        initialDepartment={department}
       />
     </div>
   );

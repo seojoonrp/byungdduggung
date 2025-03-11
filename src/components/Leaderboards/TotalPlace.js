@@ -13,7 +13,12 @@ const TotalPlace = ({ rank, nickname, department, similarity, color }) => {
         #{rank}.
       </span>
       <div className="lead-place-nickname-container">
-        <span className="lead-place-text-nickname">{nickname}</span>
+        <span
+          className="lead-place-text-nickname"
+          style={{ marginLeft: 0 }}
+        >
+          {nickname}
+        </span>
         <span className="lead-place-text-department">{department}</span>
       </div>
       <span

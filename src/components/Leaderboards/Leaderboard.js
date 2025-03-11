@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import TotalLeaderboard from "./TotalLeaderboard";
 import DepartmentLeaderboard from "./DepartmentLeaderboard";
 
+import departments from "../../data/Departments";
 import similarityData from "../../data/similarityData";
 
-const Leaderboard = ({ isOpen, onClose }) => {
+const Leaderboard = ({ isOpen, onClose, initialDepartment }) => {
   const [activeTab, setActiveTab] = useState("Total");
 
   const [data, setData] = useState([]);
@@ -13,6 +14,33 @@ const Leaderboard = ({ isOpen, onClose }) => {
     const sortedData = [...similarityData].sort((a, b) => b.similarity - a.similarity);
     setData(sortedData);
   }, []);
+
+  const [department, setDepartment] = useState(initialDepartment)
+
+  const [placeholder, setPlaceholder] = useState("재학 중인 학과를 검색해보세요");
+
+  const [inputValue, setInputValue] = useState(initialDepartment);
+  const [filteredDepartments, setFilteredDepartments] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    setInputValue(department);
+  }, [department]);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    const filtered = departments.filter((dept) => dept.includes(value)).sort().slice(0, 7);
+
+    setFilteredDepartments(filtered);
+    setIsDropdownOpen(filtered.length > 0);
+  }
+  const handleSelectedDepartment = (dept) => {
+    setDepartment(dept);
+    setInputValue(dept);
+    setIsDropdownOpen(false);
+  }
 
   if (!isOpen) return null;
 
@@ -39,8 +67,42 @@ const Leaderboard = ({ isOpen, onClose }) => {
             <TotalLeaderboard data={data} />
             :
             <>
-              <button>학과선택</button>
-              <DepartmentLeaderboard data={data} />
+              <>
+                <input
+                  type="text"
+                  className="nickname-input"
+                  style={{ marginTop: 10, marginBottom: 0 }}
+                  placeholder={placeholder}
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onFocus={(e) => {
+                    setPlaceholder("");
+                    handleInputChange(e);
+                  }}
+                  onBlur={(e) => {
+                    setTimeout(() => setIsDropdownOpen(false), 100);
+                    setPlaceholder("재학 중인 학과를 검색해보세요");
+                  }}
+                />
+
+                {isDropdownOpen && (
+                  <ul
+                    className="start-dropdown-list"
+                    style={{ top: `calc(50% - 87px)` }}
+                  >
+                    {filteredDepartments.map((dept, index) => (
+                      <li
+                        key={index}
+                        className="start-dropdown-item"
+                        onClick={() => handleSelectedDepartment(dept)}
+                      >
+                        {dept}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+              <DepartmentLeaderboard data={data} department={department} />
             </>
         }
       </div>

@@ -14,7 +14,6 @@ const DepartmentPlace = ({ rank, nickname, similarity, color }) => {
       </span>
       <span
         className="lead-place-text-nickname"
-        style={{ marginRight: "25px" }}
       >
         {nickname}
       </span>

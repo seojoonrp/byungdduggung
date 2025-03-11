@@ -46,7 +46,7 @@
 .start-dropdown-list {
   position: absolute;
   width: 180px;
-  top: calc(50% + 80px);
+  top: calc(50% + 77px);
   left: calc(50% - 90px);
   background: transparent;
   list-style: none;
@@ -173,6 +173,7 @@
   font-size: 12px;
   font-family: "Freesentation-4Regular", sans-serif;
   text-align: center;
+  background-color: #fffdf7;
   border: #798645 solid 1px;
   border-radius: 5px;
   outline: none;
@@ -235,6 +236,10 @@
   width: 264px;
   height: 318px;
 }
+.lead-place-container.department {
+  justify-content: flex-start;
+  gap: 7px;
+}
 
 .lead-place-box {
   display: flex;
@@ -247,8 +252,6 @@
 }
 
 .lead-place-text-rank {
-  position: absolute;
-  left: 52px;
   text-align: center;
   font-size: 26px;
   font-family: "EF_jejudoldam", sans-serif;
@@ -259,6 +262,7 @@
   font-family: "Freesentation-4Regular", sans-serif;
   color: #798645;
   letter-spacing: -0.5px;
+  margin-left: 10px;
 }
 .lead-place-text-department {
   font-size: 15px;
@@ -267,9 +271,8 @@
   letter-spacing: -0.5px;
 }
 .lead-place-text-similarity {
-  position: absolute;
-  right: 53px;
   margin-top: 1.5px;
+  margin-left: 20px;
   text-align: center;
   font-size: 20px;
   font-family: "EF_jejudoldam", sans-serif;
@@ -279,8 +282,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-  position: absolute;
-  left: 114px;
+  margin-left: 10px;
 }
 
 .modal-close-button {
