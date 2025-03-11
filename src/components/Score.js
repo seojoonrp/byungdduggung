@@ -115,58 +115,24 @@ function hausdorff2D(seqA, seqB) {
 
   return Math.max(maxAB, maxBA);
 }
-
-
-/**
- * 4) 점수 스케일링 (0~100, 지수 방식)
- *    distance=0 => 100점,
- *    distance ↑ => 서서히 0점으로 수렴
- */
 function scaledScore(distance) {
-  // 음수 distance 등은 0으로 처리
   if (distance < 0) distance = 0;
-
-  // (A) 구간 정의: [x1, s1], [x2, s2]
-  //   distance가 x1~x2 사이면 선형 보간
-  const keyPoints = [
-    { x: 0,   s: 100 },
-    { x: 4,   s: 98   },
-    { x: 5,   s: 95.5 },
-    { x: 6,   s: 93   },
-    { x: 7,   s: 92   },
-    { x: 8,   s: 90   },
-    { x: 10,  s: 88   },
-    { x: 12,  s: 85   },
-    { x: 15,  s: 82   },
-    { x: 40,  s: 12   },
-    { x: 60,  s: 5    },
-    { x: 100, s: 0    },
-  ];
-
-  // distance가 keyPoints 마지막 x(=100) 초과면 0점
-  if (distance >= 100) return 0;
-
-  // (B) 선형 보간 함수
-  function lerp(x, x1, y1, x2, y2) {
-    const ratio = (x - x1) / (x2 - x1);
-    return y1 + ratio * (y2 - y1);
+  
+  if (distance <= 5) {
+    // d in [0,5]: 기존 지수 감쇠 함수
+    return 11.57 * Math.exp(-0.5 * distance) + 88.43;
+  } else if (distance < 30) {
+    // d in [5,30]: 선형 보간
+    // d=5일 때 score: s5 = 11.57*exp(-0.5*5) + 88.43
+    const s5 = 11.57 * Math.exp(-0.5 * 5) + 88.43; // 약 89.38
+    // d=30일 때 score는 0, 따라서 기울기는 -s5/25
+    return s5 * (1 - (distance - 5) / 25);
+  } else {
+    // d >= 30: 0점
+    return 0;
   }
-
-  // (C) distance가 어느 구간에 속하는지 찾고, 선형 보간
-  for (let i = 0; i < keyPoints.length - 1; i++) {
-    const x1 = keyPoints[i].x;
-    const s1 = keyPoints[i].s;
-    const x2 = keyPoints[i + 1].x;
-    const s2 = keyPoints[i + 1].s;
-
-    if (distance >= x1 && distance <= x2) {
-      return lerp(distance, x1, s1, x2, s2);
-    }
-  }
-
-  // 혹시 로직상 여기까지 왔다면 distance > 100
-  return 0;
 }
+
 // compareSegments2D:
 function compareSegments2D() {
   console.log("Answer segments:", answerSegments);
