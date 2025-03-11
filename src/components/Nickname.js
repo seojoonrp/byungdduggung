@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Nickname = ({ department }) => {
+const Nickname = ({ department, onNicknameChange }) => {
   const [isOpen, setIsOpen] = useState(true);
-
   const [nickname, setNickname] = useState("");
 
   const handleConfirm = () => {
@@ -10,6 +9,12 @@ const Nickname = ({ department }) => {
       alert("닉네임은 1~10글자로 입력해주세요.")
       return;
     }
+    
+    // 닉네임이 확정되면 부모 컴포넌트에 전달
+    if (onNicknameChange) {
+      onNicknameChange(nickname);
+    }
+    
     setIsOpen(false);
   }
 

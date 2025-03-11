@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { scoreApi } from "../api";
 
 import Score from "../components/Score";
 import HowCalculated from "../components/HowCalculated";
@@ -8,23 +9,47 @@ import Nickname from "../components/Nickname";
 function ResultScreen({ department }) {
   const navigate = useNavigate();
   const [similarity, setSimilarity] = useState(0);
+  const [nickname, setNickname] = useState("");
 
   const [isHowCalculatedOpen, setIsHowCalculatedOpen] = useState(false);
   const openHowCalculated = () => setIsHowCalculatedOpen(true);
   const closeHowCalculated = () => setIsHowCalculatedOpen(false);
 
+  const submitScore = async () => {
+    try {
+      if (nickname && similarity > 0) {
+        await scoreApi.submitScore(nickname, department, similarity);
+        console.log("점수가 성공적으로 제출되었습니다.");
+      }
+    } catch (error) {
+      console.error("점수 제출 실패:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (nickname && similarity > 0) {
+      submitScore();
+    }
+  }, [nickname, similarity]);
+
   const handleRestart = () => {
     navigate("/game");
   }
 
-  // Score 컴포넌트로부터 similarity를 전달받아 state에 저장
   const handleSimilarityChange = (val) => {
     setSimilarity(val);
   };
 
+  const handleNicknameChange = (name) => {
+    setNickname(name);
+  };
+
   return (
     <div className="main-container">
-      <Nickname department={department} />
+      <Nickname 
+        department={department} 
+        onNicknameChange={handleNicknameChange}
+      />
 
       <Score onSimilarityChange={handleSimilarityChange} />
       <button

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://byungdduggung-b.onrender.com';  // 백엔드 서버 포트 (임시)
+const API_BASE_URL = 'https://byungdduggung-b.onrender.com/api';  // 백엔드 서버 포트 (임시)
 
 export const scoreApi = {
   // 점수 등록
@@ -8,7 +8,7 @@ export const scoreApi = {
     const response = await axios.post(`${API_BASE_URL}/scores`, {
       nickname,
       department,
-      score
+      similarity: score
     });
     return response.data;
   },
