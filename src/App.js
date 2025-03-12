@@ -5,6 +5,7 @@ import './styles/fonts.css';
 import StartScreen from './screens/StartScreen';
 import GameScreen from './screens/GameScreen';
 import ResultScreen from './screens/ResultScreen';
+import PreventBack from './components/PreventBack';
 
 function App() {
   const [department, setDepartment] = useState(() => {
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <Router>
+      <PreventBack />
       <Routes>
         <Route
           path='/'

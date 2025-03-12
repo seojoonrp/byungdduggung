@@ -5,7 +5,6 @@ import Score from "../components/Score";
 import HowCalculated from "../components/HowCalculated";
 import Nickname from "../components/Nickname";
 import Leaderboard from "../components/Leaderboards/Leaderboard";
-import html2canvas from "html2canvas"; // (이미 캡처 기능을 안 쓰면 제거 가능)
 
 function ResultScreen({ department }) {
   const navigate = useNavigate();
