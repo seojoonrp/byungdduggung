@@ -28,7 +28,7 @@ function ResultScreen({ department }) {
     try {
       // 해시(#) 제거된 URL
       const baseUrl = window.location.origin + window.location.pathname;
-      await navigator.clipboard.writeText(baseUrl);
+      await navigator.clipboard.writeText(window.location.origin);
       alert("링크가 클립보드에 복사되었습니다!");
       window.location.href = "instagram://app";
       window.open("https://www.instagram.com/", "_blank");
