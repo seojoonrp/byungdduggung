@@ -135,8 +135,6 @@ function scaledScore(distance) {
 
 // compareSegments2D:
 function compareSegments2D() {
-  console.log("Answer segments:", answerSegments);
-  console.log("User shape segments:", shapeSegmentsGlobal);
 
   const totalLength = 100;
   const sampleCount = 100;
@@ -154,8 +152,6 @@ function compareSegments2D() {
 
   // (D) 점수 변환 (지수, 0~100)
   const score = scaledScore(distance);
-
-  console.log(`distance = ${distance.toFixed(3)}, score = ${score.toFixed(2)}`);
 
   return {
     distance,
