@@ -1,31 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { scoreApi } from "../api.js"; // Ensure correct import path
+import Score from "../components/Score"; // Import Score.js
 
 const Nickname = ({ department, onNicknameChange }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [nickname, setNickname] = useState("");
+  const [similarity, setSimilarity] = useState(0); // Store similarity from Score.js
 
-  const handleConfirm = () => {
+  // Function to receive similarity from Score.js
+  const handleSimilarityChange = (val) => {
+    console.log("✅ Similarity received in Nickname:", val); // Debug log
+    setSimilarity(val);
+  };
+
+  const handleConfirm = async () => {  
     if (nickname.length < 1 || nickname.length > 10) {
-      alert("닉네임은 1~10글자로 입력해주세요.")
+      alert("닉네임은 1~10글자로 입력해주세요.");
       return;
     }
-    
-    // 닉네임이 확정되면 부모 컴포넌트에 전달
-    if (onNicknameChange) {
-      onNicknameChange(nickname);
+  
+    console.log("🚀 Sending Data:", { nickname, department, similarity });
+
+    try {
+      const response = await scoreApi.submitScore(nickname, department, similarity);
+      alert("서버에 점수가 등록되었습니다!");
+    } catch (error) {
+      console.error("❌ 점수 등록 오류:", error);
+      alert("점수 등록에 실패했습니다. 다시 시도해주세요.");
     }
-    
+
     setIsOpen(false);
-  }
+  };
 
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" style={{ zIndex: 1 }}>
       <div className="nickname-container">
-        <span className="nickname-text" style={{ marginTop: 19 }}>축하드립니다!</span>
-        <span className="nickname-text">{department} 유저들의 유사도 중 5등 내에 드셨습니다.</span>
-        <span className="nickname-text bold" style={{ marginTop: 10 }}>리더보드에 남길 닉네임을 입력해주세요.</span>
+        <span className="nickname-text bold" style={{ marginTop: 10 }}>
+          리더보드에 남길 닉네임을 입력해주세요.
+        </span>
+
+        {/* ✅ Include Score component to receive similarity */}
+        <Score onSimilarityChange={handleSimilarityChange} />
+
         <input
           className="nickname-input"
           placeholder="1~10글자로 입력해주세요."
