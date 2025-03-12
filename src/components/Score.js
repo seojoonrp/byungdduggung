@@ -221,7 +221,7 @@ function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
     setScore(result.score);
     setAnswerPts(result.answerPoints);
     setUserPts(result.userPoints);
-    score = Number(score.toFixed(2));
+    
     // ✅ Send similarity score to Nickname.js
     if (onSimilarityChange) {
    //   console.log("📢 Sending similarity score to Nickname:", result.score);

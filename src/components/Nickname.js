@@ -9,7 +9,7 @@ const Nickname = ({ department, onNicknameChange }) => {
 
   // Function to receive similarity from Score.js
   const handleSimilarityChange = (val) => {
-    console.log("✅ Similarity received in Nickname:", val); // Debug log
+   // console.log("✅ Similarity received in Nickname:", val); // Debug log
     setSimilarity(val);
   };
 
@@ -19,8 +19,8 @@ const Nickname = ({ department, onNicknameChange }) => {
       return;
     }
   
-    console.log("🚀 Sending Data:", { nickname, department, similarity });
-
+    //console.log("🚀 Sending Data:", { nickname, department, similarity });
+    similarity = Number(similarity.toFixed(2));
     try {
       const response = await scoreApi.submitScore(nickname, department, similarity);
       alert("서버에 점수가 등록되었습니다!");
