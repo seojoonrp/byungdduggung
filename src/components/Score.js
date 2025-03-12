@@ -225,7 +225,7 @@ function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
     // ✅ Send similarity score to Nickname.js
     if (onSimilarityChange) {
    //   console.log("📢 Sending similarity score to Nickname:", result.score);
-      onSimilarityChange(result.score);
+      onSimilarityChange(result.score.toFixed(2));
     }
   }, []);
 
