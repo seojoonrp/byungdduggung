@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { scoreApi } from "../api.js"; // Ensure correct import path
 import Score from "../components/Score"; // Import Score.js
 
-const Nickname = ({ department, onNicknameChange }) => {
+const Nickname = ({ department, setReOpen  }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [nickname, setNickname] = useState("");
   const [similarity, setSimilarity] = useState(0); // Store similarity from Score.js
@@ -20,12 +20,14 @@ const Nickname = ({ department, onNicknameChange }) => {
     }
   
     //console.log("🚀 Sending Data:", { nickname, department, similarity });
-    similarity = Number(similarity.toFixed(2));
+    
     try {
-      const response = await scoreApi.submitScore(nickname, department, similarity);
-      alert("서버에 점수가 등록되었습니다!");
+      await scoreApi.submitScore(nickname, department, Number(similarity.toFixed(2))); // 임시 점수
+      alert("리더보드에 점수가 등록되었습니다!");
+      
+      // ✅ 닉네임 제출 후 ReOpen 상태를 true로 변경
+      setReOpen(true);
     } catch (error) {
-      console.error("❌ 점수 등록 오류:", error);
       alert("점수 등록에 실패했습니다. 다시 시도해주세요.");
     }
 

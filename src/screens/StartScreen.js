@@ -31,19 +31,27 @@ function StartScreen({ department, setDepartment }) {
 
     setFilteredDepartments(filtered);
     setIsDropdownOpen(filtered.length > 0);
-  }
+  };
+
   const handleSelectedDepartment = (dept) => {
     setDepartment(dept);
     setInputValue(dept);
     setIsDropdownOpen(false);
-  }
+  };
 
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const openDescription = () => setIsDescriptionOpen(true);
   const closeDescription = () => setIsDescriptionOpen(false);
 
+  // ✅ Added reOpen state
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
-  const openLeaderboard = () => setIsLeaderboardOpen(true);
+  const [reOpen, setReOpen] = useState(false); // ✅ Ensure leaderboard fetches fresh data
+
+  // ✅ Open leaderboard & trigger refresh
+  const openLeaderboard = () => {
+    setIsLeaderboardOpen(true);
+    setReOpen(true); // ✅ Trigger leaderboard refresh
+  };
   const closeLeaderboard = () => setIsLeaderboardOpen(false);
 
   const handleStartGame = () => {
@@ -53,20 +61,12 @@ function StartScreen({ department, setDepartment }) {
     }
 
     navigate("/game");
-  }
+  };
 
   return (
     <div className="main-container">
-      <img
-        src={TitleImage}
-        alt="제목 이미지"
-        className="start-title"
-      />
-      <img
-        src={MainLogoImage}
-        alt="메인 로고 이미지"
-        className="start-logo"
-      />
+      <img src={TitleImage} alt="제목 이미지" className="start-title" />
+      <img src={MainLogoImage} alt="메인 로고 이미지" className="start-logo" />
 
       <>
         <input
@@ -89,11 +89,7 @@ function StartScreen({ department, setDepartment }) {
         {isDropdownOpen && (
           <ul className="start-dropdown-list">
             {filteredDepartments.map((dept, index) => (
-              <li
-                key={index}
-                className="start-dropdown-item"
-                onClick={() => handleSelectedDepartment(dept)}
-              >
+              <li key={index} className="start-dropdown-item" onClick={() => handleSelectedDepartment(dept)}>
                 {dept}
               </li>
             ))}
@@ -101,34 +97,18 @@ function StartScreen({ department, setDepartment }) {
         )}
       </>
 
-      <button
-        className="main-button lightgreen"
-        onClick={openDescription}
-      >
+      <button className="main-button lightgreen" onClick={openDescription}>
         게임 설명
       </button>
-      <button
-        className="main-button lightgreen"
-        onClick={openLeaderboard}
-      >
+      <button className="main-button lightgreen" onClick={openLeaderboard}>
         리더보드 보기
       </button>
-      <button
-        className="main-button darkgreen"
-        onClick={handleStartGame}
-      >
+      <button className="main-button darkgreen" onClick={handleStartGame}>
         시작하기!
       </button>
 
-      <Description
-        isOpen={isDescriptionOpen}
-        onClose={closeDescription}
-      />
-      <Leaderboard
-        isOpen={isLeaderboardOpen}
-        onClose={closeLeaderboard}
-        initialDepartment={department}
-      />
+      <Description isOpen={isDescriptionOpen} onClose={closeDescription} />
+      <Leaderboard isOpen={isLeaderboardOpen} onClose={closeLeaderboard} reOpen={reOpen} setReOpen={setReOpen} />
     </div>
   );
 }

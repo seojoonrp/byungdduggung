@@ -15,22 +15,29 @@ function ResultScreen({ department }) {
   const closeHowCalculated = () => setIsHowCalculatedOpen(false);
 
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
-  const openLeaderboard = () => setIsLeaderboardOpen(true);
+
+  // ✅ Changed `ReOpen` → `reOpen` (camelCase)
+  const [reOpen, setReOpen] = useState(false);
+
+  // ✅ Open leaderboard & trigger re-fetch
+  const openLeaderboard = () => {
+    setIsLeaderboardOpen(true);
+    setReOpen(true); // ✅ Trigger re-fetch
+  };
   const closeLeaderboard = () => setIsLeaderboardOpen(false);
 
   const handleRestart = () => {
     navigate("/game");
   };
 
-  // Score 컴포넌트로부터 similarity 전달
+  // ✅ Score 컴포넌트로부터 similarity 전달
   const handleSimilarityChange = (val) => {
     setSimilarity(val);
   };
 
-  // 스토리 공유 버튼: URL 복사 → 인스타그램 앱 열기
+  // ✅ 스토리 공유 버튼: URL 복사 → 인스타그램 앱 열기
   const handleShare = async () => {
     try {
-      // 해시(#) 제거된 URL
       const baseUrl = window.location.origin + window.location.pathname;
       await navigator.clipboard.writeText(window.location.origin);
       alert("링크가 클립보드에 복사되었습니다!");
@@ -44,7 +51,7 @@ function ResultScreen({ department }) {
 
   return (
     <div className="main-container">
-      <Nickname department={department} />
+      <Nickname department={department} setReOpen={setReOpen} />
       <Score onSimilarityChange={handleSimilarityChange} />
       <button className="main-button lightgreen" onClick={handleRestart}>
         다시하기
@@ -59,7 +66,8 @@ function ResultScreen({ department }) {
       <Leaderboard
         isOpen={isLeaderboardOpen}
         onClose={closeLeaderboard}
-        initialDepartment={department}
+        reOpen={reOpen}  // ✅ Use `reOpen` (camelCase)
+        setReOpen={setReOpen} // ✅ Pass function to reset reOpen
       />
       <HowCalculated isOpen={isHowCalculatedOpen} onClose={closeHowCalculated} />
     </div>
