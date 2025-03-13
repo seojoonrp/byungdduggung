@@ -117,7 +117,7 @@ function hausdorff2D(seqA, seqB) {
 }
 function scaledScore(distance) {
   if (distance < 0) distance = 0;
-  
+
   if (distance <= 5) {
     // d in [0,5]: 기존 지수 감쇠 함수
     return 11.57 * Math.exp(-0.5 * distance) + 88.43;
@@ -141,11 +141,11 @@ function compareSegments2D() {
 
   // (A) 폴리라인 복원
   const answerVerts = buildVertices(answerSegments, -90, 0, 0, totalLength);
-  const userVerts   = buildVertices(shapeSegmentsGlobal, -90, 0, 0, totalLength);
+  const userVerts = buildVertices(shapeSegmentsGlobal, -90, 0, 0, totalLength);
 
   // (B) 샘플링
   const answerPoints = samplePolyline(answerVerts, sampleCount);
-  const userPoints   = samplePolyline(userVerts,   sampleCount);
+  const userPoints = samplePolyline(userVerts, sampleCount);
 
   // (C) Hausdorff 거리 계산
   const distance = hausdorff2D(answerPoints, userPoints);
@@ -182,11 +182,11 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
 
   // 2) path 변환
   const answerPath = toPathD(answerPoints);
-  const userPath   = toPathD(userPoints);
-  
+  const userPath = toPathD(userPoints);
+
   const scaleFactor = 5.78;    // 1.5배 확대
   const translateX = 104.7;      // x방향 50만큼 이동
-  const translateY = 249; 
+  const translateY = 249;
   return (
     <svg
       width={width}
@@ -199,7 +199,7 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
         scale(${scaleFactor})
       `}>
         {/* 정답 폴리라인(연두색) */}
-        <path d={answerPath} stroke="#BAC677" strokeWidth="2*(1/scaleFactor)" fill="none" strokeLinejoin="round"/>
+        <path d={answerPath} stroke="#BAC677" strokeWidth="2*(1/scaleFactor)" fill="none" strokeLinejoin="round" />
         {/* 사용자 폴리라인(진한 초록) */}
         <path d={userPath} stroke="#798645" strokeWidth="2*(1/scaleFactor)" fill="none" strokeLinejoin="round" />
       </g>
@@ -221,10 +221,10 @@ function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
     setScore(result.score);
     setAnswerPts(result.answerPoints);
     setUserPts(result.userPoints);
-    
+
     // ✅ Send similarity score to Nickname.js
     if (onSimilarityChange) {
-   //   console.log("📢 Sending similarity score to Nickname:", result.score);
+      //   console.log("📢 Sending similarity score to Nickname:", result.score);
       onSimilarityChange(result.score);
     }
   }, []);
@@ -232,13 +232,15 @@ function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
   return (
     <div className="score-container">
       <span className="your-similarity-is">당신의 유사도는...!</span>
-      <span className="similarity">{score.toFixed(2)}%</span>
+      <span className="similarity">
+        {score === 0 ? "0% ㅋㅋㅋ" : `${score.toFixed(2)}%`}
+      </span>
       <div className="visualizer">
         <img
           src={BottleCapImage}
           alt="병뚜껑 이미지"
           className="score-bottle-cap-image"
-          style={{ width: `${capWidth}px`,transform: "translateY(-25px)"}}
+          style={{ width: `${capWidth}px`, transform: "translateY(-25px)" }}
         />
         <ShapeVisualizer
           answerPoints={answerPts}
