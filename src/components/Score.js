@@ -233,7 +233,7 @@ function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
     <div className="score-container">
       <span className="your-similarity-is">당신의 유사도는...!</span>
       <span className="similarity">
-        {score === 0 ? "0% ㅋㅋㅋ" : `${score.toFixed(2)}%`}
+        {score === 0 ? "0% ㅠㅠㅠ" : `${score.toFixed(2)}%`}
       </span>
       <div className="visualizer">
         <img
