@@ -12,37 +12,33 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
   const [inputValue, setInputValue] = useState(initialDepartment);
   const [filteredDepartments, setFilteredDepartments] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [firstOpen, setFirstOpen] = useState(false); // ✅ 리더보드가 처음 열렸는지 체크
+  const [firstOpen, setFirstOpen] = useState(false);
 
-  // ✅ 최초 1회만 fetch 실행 (isOpen이 처음 true가 될 때)
   useEffect(() => {
     if (isOpen && !firstOpen) {
-      console.log("📢 리더보드 최초 오픈 - 데이터 가져오기");
-      fetchData();
-      setFirstOpen(true); // ✅ 한 번 실행 후 다시 실행되지 않도록 설정
+      console.log("📢 리더보드 최초 오픈 - 전체 데이터 가져오기");
+      fetchTotalData();
+      setFirstOpen(true);
     }
   }, [isOpen]);
 
-  // ✅ Nickname 등록 후 (reOpen) 새로고침 트리거
   useEffect(() => {
     if (reOpen) {
       console.log("🔄 Nickname 등록 후 리더보드 업데이트");
-      fetchData();
-      setReOpen(false); // ✅ 데이터 갱신 후 다시 false로 설정
+      fetchTotalData();
+      setReOpen(false);
     }
   }, [reOpen]);
 
-  const fetchData = async () => {
+  const fetchTotalData = async () => {
     try {
       const fetchedData = await scoreApi.getAllScores();
-      const sortedData = [...fetchedData].sort((a, b) => b.similarity - a.similarity);
-      setData(sortedData);
+      setData(fetchedData);
     } catch (error) {
-      console.error("❌ Failed to fetch scores:", error);
+      console.error("❌ 전체 점수 조회 실패:", error);
     }
   };
 
-  // ✅ Update input value when department changes
   useEffect(() => {
     setInputValue(department);
   }, [department]);
@@ -61,9 +57,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
     setIsDropdownOpen(false);
   };
 
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -81,32 +75,56 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
           <TotalLeaderboard data={data} />
         ) : (
           <>
-            <input
-              type="text"
-              className="nickname-input"
-              style={{ marginTop: 10, marginBottom: 0 }}
-              placeholder={placeholder}
-              value={inputValue}
-              onChange={handleInputChange}
-              onFocus={(e) => {
-                setPlaceholder("");
-                handleInputChange(e);
-              }}
-              onBlur={(e) => {
-                setTimeout(() => setIsDropdownOpen(false), 100);
-                setPlaceholder("재학 중인 학과를 검색해보세요");
-              }}
-            />
-            {isDropdownOpen && (
-              <ul className="start-dropdown-list" style={{ top: `calc(50% - 87px)` }}>
-                {filteredDepartments.map((dept, index) => (
-                  <li key={index} className="start-dropdown-item" onClick={() => handleSelectedDepartment(dept)}>
-                    {dept}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <DepartmentLeaderboard data={data} department={department} />
+            {/* ✅ 검색 입력 필드와 드롭다운 리스트를 감싸는 컨테이너 */}
+            <div style={{ position: "relative", width: "100%" }}>
+              <input
+                type="text"
+                className="nickname-input"
+                placeholder={placeholder}
+                value={inputValue}
+                onChange={handleInputChange}
+                onFocus={(e) => {
+                  setPlaceholder("");
+                  handleInputChange(e);
+                }}
+                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 100)}
+                style={{ width: "100%", zIndex: 10 }}
+              />
+              {isDropdownOpen && (
+                <ul
+                  className="start-dropdown-list"
+                  style={{
+                    position: "absolute",
+                    top: "100%", // ✅ 검색창 바로 아래에 배치
+                    left: "0",
+                    width: "100%",
+                    background: "#fff",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                    zIndex: 20, // ✅ 드롭다운이 다른 요소 위에 표시됨
+                    padding: 0,
+                    marginTop: "2px",
+                  }}
+                >
+                  {filteredDepartments.map((dept, index) => (
+                    <li
+                      key={index}
+                      className="start-dropdown-item"
+                      onClick={() => handleSelectedDepartment(dept)}
+                      style={{
+                        padding: "8px 12px",
+                        cursor: "pointer",
+                        transition: "background 0.2s",
+                      }}
+                    >
+                      {dept}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <DepartmentLeaderboard department={department} />
           </>
         )}
       </div>
