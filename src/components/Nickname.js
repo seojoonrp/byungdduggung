@@ -9,7 +9,7 @@ const Nickname = ({ department, setReOpen }) => {
 
   // Function to receive similarity from Score.js
   const handleSimilarityChange = (val) => {
-    // console.log("✅ Similarity received in Nickname:", val); // Debug log
+    console.log("✅ Similarity received in Nickname:", val); // Debug log
     setSimilarity(val);
   };
 
@@ -19,9 +19,10 @@ const Nickname = ({ department, setReOpen }) => {
       return;
     }
 
-    //console.log("🚀 Sending Data:", { nickname, department, similarity });
+    console.log("🚀 Sending Data:", { nickname, department, similarity });
+
     try {
-      await scoreApi.submitScore(nickname, department, Number(similarity.toFixed(2))); // 임시 점수
+      await scoreApi.submitScore(nickname, department, Number(similarity.toFixed(2))); // 점수 저장
       alert("리더보드에 점수가 등록되었습니다!");
 
       // ✅ 닉네임 제출 후 ReOpen 상태를 true로 변경
@@ -35,7 +36,7 @@ const Nickname = ({ department, setReOpen }) => {
 
   const handleSkip = () => {
     setIsOpen(false);
-  }
+  };
 
   if (!isOpen) return null;
 
@@ -45,6 +46,9 @@ const Nickname = ({ department, setReOpen }) => {
         <span className="nickname-text bold" style={{ marginTop: 20 }}>
           리더보드에 남길 닉네임을 입력해주세요.
         </span>
+
+        {/* ✅ Score 컴포넌트 추가 (onSimilarityChange로 점수 전달받음) */}
+        <Score onSimilarityChange={handleSimilarityChange} />
 
         <input
           className="nickname-input"
