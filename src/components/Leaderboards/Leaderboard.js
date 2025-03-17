@@ -76,7 +76,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
         ) : (
           <>
             {/* ✅ 검색 입력 필드와 드롭다운 리스트를 감싸는 컨테이너 */}
-            <div style={{ position: "relative", width: "100%" }}>
+            <div style={{ position: "relative", width: 150 }}>
               <input
                 type="text"
                 className="nickname-input"
@@ -97,11 +97,8 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
                     position: "absolute",
                     top: "100%", // ✅ 검색창 바로 아래에 배치
                     left: "0",
-                    width: "100%",
-                    background: "#fff",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                    width: 161,
+                    background: "transparent",
                     zIndex: 20, // ✅ 드롭다운이 다른 요소 위에 표시됨
                     padding: 0,
                     marginTop: "2px",
@@ -113,7 +110,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
                       className="start-dropdown-item"
                       onClick={() => handleSelectedDepartment(dept)}
                       style={{
-                        padding: "8px 12px",
+                        padding: "4px 12px",
                         cursor: "pointer",
                         transition: "background 0.2s",
                       }}

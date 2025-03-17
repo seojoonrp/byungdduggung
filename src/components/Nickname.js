@@ -48,7 +48,7 @@ const Nickname = ({ department, setReOpen }) => {
         </span>
 
         {/* ✅ Score 컴포넌트 추가 (onSimilarityChange로 점수 전달받음) */}
-        <Score onSimilarityChange={handleSimilarityChange} />
+        <Score onSimilarityChange={handleSimilarityChange} isShown={false} />
 
         <input
           className="nickname-input"
