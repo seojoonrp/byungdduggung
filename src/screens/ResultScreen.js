@@ -40,9 +40,7 @@ function ResultScreen({ department }) {
     try {
       const baseUrl = window.location.origin + window.location.pathname;
       await navigator.clipboard.writeText(window.location.origin);
-      alert("링크가 클립보드에 복사되었습니다!");
-      window.location.href = "instagram://app";
-      window.open("https://www.instagram.com/", "_blank");
+      alert("링크가 클립보드에 복사되었습니다. 결과 화면을 캡쳐해 친구들에게 공유해보세요!");
     } catch (error) {
       console.error("공유 실패:", error);
       alert("공유에 실패했습니다.");
@@ -58,7 +56,7 @@ function ResultScreen({ department }) {
       </button>
       <button className="main-button lightgreen" onClick={openLeaderboard}>리더보드 보기</button>
       <button className="main-button darkgreen" onClick={handleShare}>
-        스토리 공유하기!
+        공유하기
       </button>
       <button className="result-how-calculated" onClick={openHowCalculated}>
         유사도는 어떻게 측정되나요?
