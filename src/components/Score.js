@@ -209,7 +209,7 @@ function ShapeVisualizer({ answerPoints, userPoints, width, height }) {
 
 
 // 7) 실제 컴포넌트
-function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
+function Score({ onSimilarityChange, isShown = true }) { // ✅ Accept callback from Nickname.js
   const [score, setScore] = useState(0);
   const [answerPts, setAnswerPts] = useState([]);
   const [userPts, setUserPts] = useState([]);
@@ -228,6 +228,8 @@ function Score({ onSimilarityChange }) { // ✅ Accept callback from Nickname.js
       onSimilarityChange(result.score);
     }
   }, []);
+
+  if (!isShown) return null;
 
   return (
     <div className="score-container">

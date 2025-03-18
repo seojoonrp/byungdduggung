@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DepartmentPlace from "./DepartmentPlace";
+import { scoreApi } from "../../api.js";
 
-const DepartmentLeaderboard = ({ data, department }) => {
-  const filterByDepartment = (data, department) => {
-    return data.filter(item => item.department === department);
-  };
+const DepartmentLeaderboard = ({ department }) => {
+  const [departmentData, setDepartmentData] = useState([]);
 
-  const filteredData = filterByDepartment(data, department);
+  useEffect(() => {
+    const fetchDepartmentData = async () => {
+      if (!department) return;
+      try {
+        const data = await scoreApi.getDepartmentScores(department);
+        setDepartmentData(data);
+      } catch (error) {
+        console.error("❌ 학과별 점수 불러오기 실패:", error);
+      }
+    };
+
+    fetchDepartmentData();
+  }, [department]); // department 변경 시 새로운 데이터 요청
 
   return (
-    <div
-      className="lead-place-container department"
-      style={{ height: "283px" }}
-    >
-      {filteredData.map((item, index) => (
+    <div className="lead-place-container department" style={{ height: "283px" }}>
+      {departmentData.map((item, index) => (
         <DepartmentPlace
           key={index}
           rank={index + 1}
