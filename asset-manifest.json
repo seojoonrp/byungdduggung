@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/byungdduggung/static/css/main.f159f805.css",
-    "main.js": "/byungdduggung/static/js/main.99cc69d3.js",
-    "static/js/453.85252157.chunk.js": "/byungdduggung/static/js/453.85252157.chunk.js",
-    "static/media/GameDescription.svg": "/byungdduggung/static/media/GameDescription.5092f46cfbf3aa508ef5.svg",
-    "static/media/HowCalculatedImage.svg": "/byungdduggung/static/media/HowCalculatedImage.b879e7d2098922c5f37d.svg",
-    "static/media/TitleImage.svg": "/byungdduggung/static/media/TitleImage.1b935b38d0e2a1fb532d7ac058e4fe04.svg",
-    "static/media/BackgroundPatternImage.svg": "/byungdduggung/static/media/BackgroundPatternImage.016f7c687eec7f57e27b.svg",
-    "static/media/TimerBarImage.svg": "/byungdduggung/static/media/TimerBarImage.8d7a5db8a19fbeb58c2c.svg",
-    "static/media/LeaderboardBackground.svg": "/byungdduggung/static/media/LeaderboardBackground.b57a859e12bd3af863ef.svg",
-    "static/media/MainLogoImage.svg": "/byungdduggung/static/media/MainLogoImage.ca4c4820d2caa129da8dfb3f40560d45.svg",
-    "static/media/BottleCapImage.svg": "/byungdduggung/static/media/BottleCapImage.f3afa14ff747a19a42ee3855857b2440.svg",
-    "static/media/DarkGreenButtonOutline.svg": "/byungdduggung/static/media/DarkGreenButtonOutline.065f1f27fdd8037fe7f6.svg",
-    "static/media/LightGreenButtonOutline.svg": "/byungdduggung/static/media/LightGreenButtonOutline.abfba4f7024981a44769.svg",
-    "static/media/DepartmentButtonOutline.svg": "/byungdduggung/static/media/DepartmentButtonOutline.4ab7ce288d6e861e2e9c.svg",
-    "index.html": "/byungdduggung/index.html",
-    "static/media/Sha.svg": "/byungdduggung/static/media/Sha.bc6e0bf86e377b24edd8be5cc279ceac.svg",
-    "main.f159f805.css.map": "/byungdduggung/static/css/main.f159f805.css.map",
-    "main.99cc69d3.js.map": "/byungdduggung/static/js/main.99cc69d3.js.map",
-    "453.85252157.chunk.js.map": "/byungdduggung/static/js/453.85252157.chunk.js.map"
+    "main.css": "./static/css/main.b924513e.css",
+    "main.js": "./static/js/main.c8d3684b.js",
+    "static/js/453.85252157.chunk.js": "./static/js/453.85252157.chunk.js",
+    "static/media/GameDescription.svg": "./static/media/GameDescription.5092f46cfbf3aa508ef5.svg",
+    "static/media/HowCalculatedImage.svg": "./static/media/HowCalculatedImage.b879e7d2098922c5f37d.svg",
+    "static/media/TitleImage.svg": "./static/media/TitleImage.1b935b38d0e2a1fb532d7ac058e4fe04.svg",
+    "static/media/BackgroundPatternImage.svg": "./static/media/BackgroundPatternImage.016f7c687eec7f57e27b.svg",
+    "static/media/TimerBarImage.svg": "./static/media/TimerBarImage.8d7a5db8a19fbeb58c2c.svg",
+    "static/media/LeaderboardBackground.svg": "./static/media/LeaderboardBackground.b57a859e12bd3af863ef.svg",
+    "static/media/MainLogoImage.svg": "./static/media/MainLogoImage.ca4c4820d2caa129da8dfb3f40560d45.svg",
+    "static/media/BottleCapImage.svg": "./static/media/BottleCapImage.f3afa14ff747a19a42ee3855857b2440.svg",
+    "static/media/DarkGreenButtonOutline.svg": "./static/media/DarkGreenButtonOutline.065f1f27fdd8037fe7f6.svg",
+    "static/media/LightGreenButtonOutline.svg": "./static/media/LightGreenButtonOutline.abfba4f7024981a44769.svg",
+    "static/media/DepartmentButtonOutline.svg": "./static/media/DepartmentButtonOutline.4ab7ce288d6e861e2e9c.svg",
+    "index.html": "./index.html",
+    "static/media/Sha.svg": "./static/media/Sha.bc6e0bf86e377b24edd8be5cc279ceac.svg",
+    "main.b924513e.css.map": "./static/css/main.b924513e.css.map",
+    "main.c8d3684b.js.map": "./static/js/main.c8d3684b.js.map",
+    "453.85252157.chunk.js.map": "./static/js/453.85252157.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f159f805.css",
-    "static/js/main.99cc69d3.js"
+    "static/css/main.b924513e.css",
+    "static/js/main.c8d3684b.js"
   ]
 }
