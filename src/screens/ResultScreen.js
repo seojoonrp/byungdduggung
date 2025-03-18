@@ -56,7 +56,7 @@ function ResultScreen({ department }) {
       </button>
       <button className="main-button lightgreen" onClick={openLeaderboard}>리더보드 보기</button>
       <button className="main-button darkgreen" onClick={handleShare}>
-        공유하기
+        공유하기!
       </button>
       <button className="result-how-calculated" onClick={openHowCalculated}>
         유사도는 어떻게 측정되나요?

@@ -96,6 +96,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
                   style={{
                     position: "absolute",
                     top: "100%", // ✅ 검색창 바로 아래에 배치
+                    transform: `translateY(-12px)`,
                     left: "0",
                     width: 161,
                     background: "transparent",

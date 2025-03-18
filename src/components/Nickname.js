@@ -70,6 +70,13 @@ const Nickname = ({ department, setReOpen }) => {
         >
           저장 없이 넘어가기
         </button>
+        <span
+          className="how-calc-text"
+          style={{ marginBottom: 20, marginTop: -5, fontSize: 10 }}
+        >
+          * 첫 저장 시 서버를 불러오느라 시간이 오래 걸릴 수 있습니다. *<br />
+          조금만 기다려주세요. (30초 ~ 1분)
+        </span>
       </div>
     </div>
   );
