@@ -40,7 +40,7 @@ function ResultScreen({ department }) {
     try {
       const baseUrl = window.location.origin + window.location.pathname;
       await navigator.clipboard.writeText(window.location.origin);
-      alert("링크가 클립보드에 복사되었습니다. 결과 화면을 캡쳐해 친구들에게 공유해보세요!");
+      alert("링크가 클립보드에 복사되었습니다.\n결과 화면을 캡쳐해 친구들에게 공유해보세요!");
     } catch (error) {
       console.error("공유 실패:", error);
       alert("공유에 실패했습니다.");
