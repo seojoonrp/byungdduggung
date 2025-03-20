@@ -17,7 +17,7 @@ const DepartmentLeaderboard = ({ department }) => {
     };
 
     fetchDepartmentData();
-  }, [department]); // department 변경 시 새로운 데이터 요청
+  }, [department]);
 
   return (
     <div className="lead-place-container department" style={{ height: "283px" }}>

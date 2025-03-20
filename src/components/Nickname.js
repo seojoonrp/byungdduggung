@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CryptoJS from 'crypto-js';
 import { scoreApi } from "../api.js";
 import Score from "../components/Score";
 
@@ -6,6 +7,8 @@ const Nickname = ({ department, setReOpen }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [nickname, setNickname] = useState("");
   const [similarity, setSimilarity] = useState(0);
+
+  const JUJIMAE = 'c69d6e5dfac54cf4a7cb8f912b71a6eb5df8c8a7c9f28f3a88939f6f1a7d1c9d';
 
   const handleSimilarityChange = (val) => {
     setSimilarity(val);
@@ -18,7 +21,9 @@ const Nickname = ({ department, setReOpen }) => {
     }
 
     try {
-      await scoreApi.submitScore(nickname, department, Number(similarity.toFixed(2)));
+      const encryptedSimilarity = CryptoJS.AES.encrypt(similarity.toFixed(2).toString(), JUJIMAE).toString();
+
+      await scoreApi.submitScore(nickname, department, encryptedSimilarity);
       alert("리더보드에 점수가 등록되었습니다!");
 
       setReOpen(true);
