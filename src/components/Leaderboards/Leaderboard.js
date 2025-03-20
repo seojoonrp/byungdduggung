@@ -16,7 +16,6 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
 
   useEffect(() => {
     if (isOpen && !firstOpen) {
-      console.log("📢 리더보드 최초 오픈 - 전체 데이터 가져오기");
       fetchTotalData();
       setFirstOpen(true);
     }
@@ -24,7 +23,6 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
 
   useEffect(() => {
     if (reOpen) {
-      console.log("🔄 Nickname 등록 후 리더보드 업데이트");
       fetchTotalData();
       setReOpen(false);
     }
@@ -35,7 +33,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
       const fetchedData = await scoreApi.getAllScores();
       setData(fetchedData);
     } catch (error) {
-      console.error("❌ 전체 점수 조회 실패:", error);
+      console.error("전체 점수 조회 실패: ", error);
     }
   };
 
@@ -75,8 +73,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
           <TotalLeaderboard data={data} />
         ) : (
           <>
-            {/* ✅ 검색 입력 필드와 드롭다운 리스트를 감싸는 컨테이너 */}
-            <div style={{ position: "relative", width: 150 }}>
+            <div style={{ position: "relative", width: 180, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <input
                 type="text"
                 className="nickname-input"
@@ -88,21 +85,20 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
                   handleInputChange(e);
                 }}
                 onBlur={() => setTimeout(() => setIsDropdownOpen(false), 100)}
-                style={{ width: "100%", zIndex: 10 }}
+                style={{ width: "100%", zIndex: 10, marginTop: 10, marginBottom: -2 }}
               />
               {isDropdownOpen && (
                 <ul
                   className="start-dropdown-list"
                   style={{
                     position: "absolute",
-                    top: "100%", // ✅ 검색창 바로 아래에 배치
-                    transform: `translateY(-12px)`,
+                    top: "100%",
+                    transform: `translateY(4px)`,
                     left: "0",
-                    width: 161,
+                    width: 180,
                     background: "transparent",
-                    zIndex: 20, // ✅ 드롭다운이 다른 요소 위에 표시됨
+                    zIndex: 20,
                     padding: 0,
-                    marginTop: "2px",
                   }}
                 >
                   {filteredDepartments.map((dept, index) => (
