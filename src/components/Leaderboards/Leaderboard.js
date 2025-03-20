@@ -85,7 +85,7 @@ const Leaderboard = ({ isOpen, onClose, initialDepartment, reOpen, setReOpen }) 
                   handleInputChange(e);
                 }}
                 onBlur={() => setTimeout(() => setIsDropdownOpen(false), 100)}
-                style={{ width: "100%", zIndex: 10, marginTop: 10, marginBottom: -2 }}
+                style={{ width: "100%", zIndex: 10, marginTop: 11, marginBottom: -2 }}
               />
               {isDropdownOpen && (
                 <ul
