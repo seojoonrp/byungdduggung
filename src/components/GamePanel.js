@@ -8,7 +8,7 @@ export let shapeSegmentsGlobal = [];
 const GamePanel = ({ isActive }) => {
   const capWidth = 75;
   const barWidth = 2.5;
-  const totalLength = Math.PI * capWidth; // 병뚜껑 둘레
+  const totalLength = Math.PI * capWidth;
   const initialCoordX = 104;
   const initialCoordY = 338;
 
@@ -16,35 +16,24 @@ const GamePanel = ({ isActive }) => {
   const rotationSpeed = 2;
   const frameTime = 25;
 
-  // (A) 막대 채움 비율 (0~1)
   const [curRatio, setCurRatio] = useState(0);
   const [confirmedRatio, setConfirmedRatio] = useState(0);
 
-  // (B) 현재 회전(절대 각도: -90도부터 시작)
   const [curRotation, setCurRotation] = useState(-90);
 
-  // (C) 렌더링용 세그먼트 정보 (절대 길이 + 절대 각도)
   const [renderSegments, setRenderSegments] = useState([]);
-
-  // (D) DTW/Shape용 세그먼트 정보 (ratio + Δangle)
   const [shapeSegments, setShapeSegments] = useState([]);
 
-  // (E) 직전 세그먼트 각도(Δangle 계산용)
   const [prevAngle, setPrevAngle] = useState(-90);
 
-  // (F) 현재 막대 회전축 (SVG 좌표)
   const [curPivot, setCurPivot] = useState({ x: initialCoordX, y: initialCoordY });
 
-  // (G) 마우스 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
 
-  // (H) 현재 클릭 중인 세그먼트 길이(픽셀)
   const [curSegmentLength, setCurSegmentLength] = useState(0);
 
-  // (I) 게임 종료 여부
   const [gameOver, setGameOver] = useState(false);
 
-  // (1) 마우스가 눌려 있지 않고 게임 오버가 아니며, 막대가 1 미만이면 채우기
   useEffect(() => {
     if (isActive && !gameOver && !isClicked && curRatio < 1) {
       const fillInterval = setInterval(() => {
@@ -55,7 +44,6 @@ const GamePanel = ({ isActive }) => {
     }
   }, [isActive, gameOver, isClicked, curRatio]);
 
-  // (2) 마우스가 눌려 있고 게임 오버가 아니면 회전
   useEffect(() => {
     if (isActive && !gameOver && isClicked) {
       const rotateInterval = setInterval(() => {
@@ -66,9 +54,7 @@ const GamePanel = ({ isActive }) => {
     }
   }, [isActive, gameOver, isClicked]);
 
-  // (3) 마우스 다운(클릭 시작)
   const handleMouseDown = (e) => {
-    // prevent default 동작 추가
     if (e && e.preventDefault) e.preventDefault();
     if (!isActive || gameOver) return;
 
@@ -79,50 +65,41 @@ const GamePanel = ({ isActive }) => {
     setIsClicked(true);
   };
 
-  // (4) 마우스 업(클릭 해제)시 세그먼트 확정
   const handleMouseUp = (e) => {
-    // prevent default 동작 추가
     if (e && e.preventDefault) e.preventDefault();
     if (!isActive || gameOver) return;
 
-    const segRatio = curRatio - confirmedRatio; // 이번 세그먼트 비율
-    const segSize = segRatio * totalLength; // 픽셀 길이
+    const segRatio = curRatio - confirmedRatio;
+    const segSize = segRatio * totalLength;
 
-    // Δangle = 지금 각도 - 이전 세그먼트 끝 각도
     const newAngle = curRotation;
     const deltaAngle = newAngle - prevAngle;
 
-    // (4-1) 렌더링 세그먼트 추가
     setRenderSegments((prev) => [
       ...prev,
       { size: segSize, angle: newAngle },
     ]);
 
-    // (4-2) Shape/DTW 세그먼트 추가
     setShapeSegments((prev) => {
       const updated = [...prev, { ratio: segRatio, deltaAngle }];
-      shapeSegmentsGlobal = updated; // 전역 변수 동기화
+      shapeSegmentsGlobal = updated;
       return updated;
     });
 
-    // prevAngle 갱신
     setPrevAngle(newAngle);
     setConfirmedRatio(curRatio);
 
-    // pivot 업데이트
     const newPivot = calculateNewPivot(segSize, newAngle);
     setCurPivot(newPivot);
 
     setIsClicked(false);
 
-    // 마지막 세그먼트(막대가 100% 이상)
     if (curRatio >= 1) {
       setCurRatio(1);
       setGameOver(true);
     }
   };
 
-  // (F) pivot(회전축) 업데이트 함수
   const calculateNewPivot = (segmentSize, absoluteAngle) => {
     const radRotation = (absoluteAngle * Math.PI) / 180;
     return {
@@ -131,7 +108,6 @@ const GamePanel = ({ isActive }) => {
     };
   };
 
-  // (5) 이미 확정된 세그먼트 렌더링
   const renderConfirmedSegments = () => {
     let x = initialCoordX;
     let y = initialCoordY;
@@ -166,7 +142,7 @@ const GamePanel = ({ isActive }) => {
   return (
     <div
       className="panel-container"
-      onContextMenu={(e) => e.preventDefault()}  // 우클릭 메뉴 방지
+      onContextMenu={(e) => e.preventDefault()}
       onMouseDown={(e) => { e.preventDefault(); handleMouseDown(e); }}
       onMouseUp={(e) => { e.preventDefault(); handleMouseUp(e); }}
       onTouchStart={(e) => { e.preventDefault(); handleMouseDown(e); }}
@@ -189,10 +165,8 @@ const GamePanel = ({ isActive }) => {
           left: 0
         }}
       >
-        {/* 이미 확정된 세그먼트들 */}
         {renderConfirmedSegments()}
 
-        {/* 현재 클릭 중(회전 중)인 세그먼트 */}
         {isClicked && !gameOver && (
           <g
             transform={`translate(${curPivot.x}, ${curPivot.y}) rotate(${curRotation})`}
@@ -213,7 +187,6 @@ const GamePanel = ({ isActive }) => {
           </g>
         )}
 
-        {/* 클릭 중이 아닐 때 남은 부분 */}
         {!isClicked && !gameOver && (
           <g
             transform={`translate(${curPivot.x}, ${curPivot.y}) rotate(${curRotation})`}

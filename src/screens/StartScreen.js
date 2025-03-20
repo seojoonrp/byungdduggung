@@ -43,14 +43,12 @@ function StartScreen({ department, setDepartment }) {
   const openDescription = () => setIsDescriptionOpen(true);
   const closeDescription = () => setIsDescriptionOpen(false);
 
-  // ✅ Added reOpen state
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
-  const [reOpen, setReOpen] = useState(false); // ✅ Ensure leaderboard fetches fresh data
+  const [reOpen, setReOpen] = useState(false);
 
-  // ✅ Open leaderboard & trigger refresh
   const openLeaderboard = () => {
     setIsLeaderboardOpen(true);
-    setReOpen(true); // ✅ Trigger leaderboard refresh
+    setReOpen(true);
   };
   const closeLeaderboard = () => setIsLeaderboardOpen(false);
 

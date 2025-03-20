@@ -16,13 +16,11 @@ function ResultScreen({ department }) {
 
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
 
-  // ✅ Changed `ReOpen` → `reOpen` (camelCase)
   const [reOpen, setReOpen] = useState(false);
 
-  // ✅ Open leaderboard & trigger re-fetch
   const openLeaderboard = () => {
     setIsLeaderboardOpen(true);
-    setReOpen(true); // ✅ Trigger re-fetch
+    setReOpen(true);
   };
   const closeLeaderboard = () => setIsLeaderboardOpen(false);
 
@@ -30,12 +28,10 @@ function ResultScreen({ department }) {
     navigate("/game");
   };
 
-  // ✅ Score 컴포넌트로부터 similarity 전달
   const handleSimilarityChange = (val) => {
     setSimilarity(val);
   };
 
-  // ✅ 스토리 공유 버튼: URL 복사 → 인스타그램 앱 열기
   const handleShare = async () => {
     try {
       const baseUrl = window.location.origin + window.location.pathname;
@@ -64,8 +60,8 @@ function ResultScreen({ department }) {
       <Leaderboard
         isOpen={isLeaderboardOpen}
         onClose={closeLeaderboard}
-        reOpen={reOpen}  // ✅ Use `reOpen` (camelCase)
-        setReOpen={setReOpen} // ✅ Pass function to reset reOpen
+        reOpen={reOpen}
+        setReOpen={setReOpen}
       />
       <HowCalculated isOpen={isHowCalculatedOpen} onClose={closeHowCalculated} />
     </div>
