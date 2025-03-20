@@ -8,7 +8,6 @@ const Nickname = ({ department, setReOpen }) => {
   const [similarity, setSimilarity] = useState(0);
 
   const handleSimilarityChange = (val) => {
-    console.log("✅ Similarity received in Nickname:", val);
     setSimilarity(val);
   };
 
@@ -17,8 +16,6 @@ const Nickname = ({ department, setReOpen }) => {
       alert("닉네임은 1~8글자로 입력해주세요.");
       return;
     }
-
-    console.log("🚀 Sending Data:", { nickname, department, similarity });
 
     try {
       await scoreApi.submitScore(nickname, department, Number(similarity.toFixed(2)));
@@ -69,7 +66,7 @@ const Nickname = ({ department, setReOpen }) => {
         </button>
         <span
           className="how-calc-text"
-          style={{ marginBottom: 20, marginTop: -5, fontSize: 10 }}
+          style={{ marginBottom: 20, marginTop: -5, fontSize: 10, letterSpacing: -0.1 }}
         >
           * 첫 저장 시 서버를 불러오느라 시간이 오래 걸릴 수 있습니다. *<br />
           조금만 기다려주세요. (30초 ~ 1분)
