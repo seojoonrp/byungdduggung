@@ -23,7 +23,7 @@ const Nickname = ({ department, setReOpen }) => {
     try {
       const encryptedSimilarity = CryptoJS.AES.encrypt(similarity.toFixed(2).toString(), JUJIMAE).toString();
 
-      await scoreApi.submitScore(nickname, department, encryptedSimilarity);
+      await scoreApi.submitScore(nickname, department, Number(similarity).toFixed(2));
       alert("리더보드에 점수가 등록되었습니다!");
 
       setReOpen(true);

@@ -13,7 +13,8 @@ const TotalLeaderboard = ({ data }) => {
           rank={index + 1}
           nickname={item.nickname}
           department={item.department}
-          similarity={CryptoJS.AES.decrypt(item.similarity, JUJIMAE).toString(CryptoJS.enc.Utf8)}
+          // similarity={CryptoJS.AES.decrypt(item.similarity, JUJIMAE).toString(CryptoJS.enc.Utf8)}
+          similarity={item.similarity}
           color={index === 0 ? "#575E2B" : index === 1 ? "#626D32" : "#798645"}
         />
       ))}
