@@ -22,7 +22,10 @@ const Nickname = ({ department, setReOpen }) => {
 
     try {
       const encryptedSimilarity = CryptoJS.AES.encrypt(similarity.toFixed(2).toString(), JUJIMAE).toString();
+      const decryptedSimilarity = Number(CryptoJS.AES.decrypt(encryptedSimilarity, JUJIMAE).toString(CryptoJS.enc.Utf8));
+
       console.log(encryptedSimilarity);
+      console.log(decryptedSimilarity);
 
       // await scoreApi.submitScore(nickname, department, encryptedSimilarity);
       await scoreApi.submitScore(nickname, department, Number(similarity).toFixed(2));
