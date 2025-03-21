@@ -28,7 +28,7 @@ const Nickname = ({ department, setReOpen }) => {
       console.log(decryptedSimilarity);
 
       await scoreApi.submitScore(nickname, department, encryptedSimilarity);
-      await scoreApi.submitScore(nickname, department, Number(similarity).toFixed(2));
+      // await scoreApi.submitScore(nickname, department, Number(similarity).toFixed(2));
       alert("리더보드에 점수가 등록되었습니다!");
 
       setReOpen(true);
