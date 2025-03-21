@@ -22,18 +22,18 @@ const Nickname = ({ department, setReOpen }) => {
 
     try {
       const encryptedSimilarity = CryptoJS.AES.encrypt(similarity.toFixed(2).toString(), JUJIMAE).toString();
-      // const decryptedSimilarity = Number(CryptoJS.AES.decrypt(encryptedSimilarity, JUJIMAE).toString(CryptoJS.enc.Utf8));
+      const decryptedSimilarity = Number(CryptoJS.AES.decrypt(encryptedSimilarity, JUJIMAE).toString(CryptoJS.enc.Utf8));
 
       console.log(encryptedSimilarity);
-      // console.log(decryptedSimilarity);
+      console.log(decryptedSimilarity);
 
       await scoreApi.submitScore(nickname, department, encryptedSimilarity);
-      // await scoreApi.submitScore(nickname, department, Number(similarity).toFixed(2));
+      await scoreApi.submitScore(nickname, department, Number(similarity).toFixed(2));
       alert("리더보드에 점수가 등록되었습니다!");
 
       setReOpen(true);
     } catch (error) {
-      alert("점수 등록에 실패했습니다. 다시 시도해주세요.");
+      alert("점수 등록에 실패했습니다. 다시 시도해주세요." + error);
     }
 
     setIsOpen(false);
